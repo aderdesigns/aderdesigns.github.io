@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Son of Sahyan — Ader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<style>
+@font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
+
+#cs-nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  height:52px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 2.2rem;
+  background:#000;
+}
+#cs-nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(12px);}
+#cs-nav-logo{height:26px;width:auto;cursor:pointer;}
+.cs-nav-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;opacity:0;transition:opacity .4s ease;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+#cs-nav.scrolled .cs-nav-title{opacity:.5;}
+
+#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
+
+#cs-images{padding-top:52px;}
+
+.cs-img-wrap{
+  width:100%;display:block;overflow:hidden;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.cs-img-wrap.visible{opacity:1;transform:translateY(0);}
+.cs-img-wrap img{width:100%;height:auto;display:block;}
+
+/* Write-up block */
+.cs-writeup{
+  max-width:860px;margin:5rem auto;padding:0 2.4rem;
+  text-align:center;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.cs-writeup.visible{opacity:1;transform:translateY(0);}
+.cs-writeup p{
+  font-family:'Host Grotesk',sans-serif;
+  font-size:.902rem;font-weight:400;
+  line-height:1.85;color:rgba(255,255,255,.55);
+  margin-bottom:1.2rem;
+}
+.cs-writeup p.note{
+  margin-top:0;
+  font-size:.902rem;color:rgba(255,255,255,.55);
+  line-height:1.85;
+}
+
+/* Explore button */
+.explore-btn-wrap{
+  display:flex;justify-content:center;
+  margin:3rem 0 4rem;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.explore-btn-wrap.visible{opacity:1;transform:translateY(0);}
+.explore-btn{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:'Host Grotesk',sans-serif;
+  font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#0a0a0a;background:#c8a96e;
+  padding:.9rem 2.2rem;border-radius:100px;
+  text-decoration:none;
+  transition:opacity .2s, transform .2s;
+}
+.explore-btn:hover{opacity:.85;transform:scale(1.03);}
+.explore-btn svg{width:14px;height:14px;stroke:#0a0a0a;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Video blocks */
+.cs-video-wrap{
+  width:100%;position:relative;background:#000;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.cs-video-wrap.visible{opacity:1;transform:translateY(0);}
+.cs-video-wrap video{width:100%;height:auto;display:block;}
+
+/* End strip */
+.cs-end{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:5rem 2rem;gap:1.2rem;border-top:1px solid rgba(255,255,255,.08);
+}
+.cs-end-label{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cs-end-title{font-family:'PP Mori',sans-serif;font-size:clamp(1.8rem,5vw,4rem);font-weight:600;letter-spacing:-.02em;color:#fff;}
+.cs-end-back{
+  margin-top:1rem;display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,.2);padding:.75rem 1.8rem;border-radius:100px;
+  transition:background .2s,border-color .2s;
+}
+.cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+</style>
+</head>
+<body>
+
+<nav id="cs-nav">
+  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
+  <span class="cs-nav-title">Son of Sahyan</span>
+</nav>
+<div id="cs-prog"></div>
+
+<div id="cs-images">
+
+  <!-- PNGs 1–12 from Behance CDN -->
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" alt="Son of Sahyan — 1" loading="eager"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/219031213343929.6747372f096ca.png" alt="Son of Sahyan — 2" loading="eager"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4bfa23213343929.6744f63fbdac5.png" alt="Son of Sahyan — 3" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6b18e9213343929.67489e63306f2.png" alt="Son of Sahyan — 4" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6dd333213343929.6747372f0ad2f.png" alt="Son of Sahyan — 5" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/8c6f3a213343929.6747372f0b2fc.png" alt="Son of Sahyan — 6" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/7309d5213343929.6747372f0a723.png" alt="Son of Sahyan — 7" loading="lazy"/></div>
+
+  <!-- Write-up -->
+  <div class="cs-writeup">
+    <p class="note">Best viewed on a 15-inch screen for an immersive experience. Scroll slowly to appreciate the depth and intricacies woven into the visuals.<br/>This project reflects the confluence of art, culture, and technology, offering a fresh perspective on storytelling while honoring the beauty and complexity of Kerala's traditions.</p>
+  </div>
+
+  <!-- Explore button -->
+  <div class="explore-btn-wrap">
+    <a class="explore-btn" href="https://adarshs-five-star-site-6a41b9.webflow.io/" target="_blank" rel="noopener noreferrer">
+      Explore the Parallax Comic Here
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- 4 MP4 videos -->
+  <div class="cs-video-wrap">
+    <video controls preload="none">
+      <source src="son of sahyan/1.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="cs-video-wrap">
+    <video controls preload="none">
+      <source src="son of sahyan/2.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="cs-video-wrap">
+    <video controls preload="none">
+      <source src="son of sahyan/3.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="cs-video-wrap">
+    <video controls preload="none">
+      <source src="son of sahyan/4.mp4" type="video/mp4"/>
+    </video>
+  </div>
+
+
+</div>
+
+<div class="cs-end">
+  <span class="cs-end-label">End of case study</span>
+  <span class="cs-end-title">Son of Sahyan</span>
+  <a href="index.html" class="cs-end-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+</div>
+
+<script>
+var nav   = document.getElementById('cs-nav');
+var prog  = document.getElementById('cs-prog');
+var imgWraps = document.querySelectorAll('.cs-img-wrap');
+var allFade  = document.querySelectorAll('.cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap');
+
+function onScroll() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
+  if (window.scrollY > 20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+
+  var current = 0;
+  imgWraps.forEach(function(w, i) {
+    if (w.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
+  });
+  
+  allFade.forEach(function(el) {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('load', onScroll);
+onScroll();
+</script>
+</body>
+</html>

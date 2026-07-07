@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dosage — Ader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<style>
+@font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
+
+#cs-nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  height:52px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 2.2rem;
+  background:#000;
+}
+#cs-nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(12px);}
+#cs-nav-logo{height:26px;width:auto;cursor:pointer;}
+.cs-nav-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;opacity:0;transition:opacity .4s ease;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+#cs-nav.scrolled .cs-nav-title{opacity:.5;}
+
+#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
+
+#cs-images{padding-top:52px;}
+.cs-img-wrap{
+  width:100%;display:block;overflow:hidden;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.cs-img-wrap.visible{opacity:1;transform:translateY(0);}
+.cs-img-wrap img{width:100%;height:auto;display:block;}
+
+.cs-end{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:5rem 2rem;gap:1.2rem;border-top:1px solid rgba(255,255,255,.08);
+}
+.cs-end-label{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cs-end-title{font-family:'PP Mori',sans-serif;font-size:clamp(1.8rem,5vw,4rem);font-weight:600;letter-spacing:-.02em;color:#fff;}
+.cs-end-back{
+  margin-top:1rem;display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,.2);padding:.75rem 1.8rem;border-radius:100px;
+  transition:background .2s,border-color .2s;
+}
+.cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+</style>
+</head>
+<body>
+
+<nav id="cs-nav">
+  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
+  <span class="cs-nav-title">Dosage</span>
+</nav>
+<div id="cs-prog"></div>
+
+<div id="cs-images">
+  <div class="cs-img-wrap"><img src="Dosage/1.gif"  alt="Dosage — 1"  loading="eager"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/2.png"  alt="Dosage — 2"  loading="eager"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/3.png"  alt="Dosage — 3"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/4.png"  alt="Dosage — 4"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/5.png"  alt="Dosage — 5"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/6.png"  alt="Dosage — 6"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/7.png"  alt="Dosage — 7"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/8.png"  alt="Dosage — 8"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/9.png"  alt="Dosage — 9"  loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/10.png" alt="Dosage — 10" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/11.png" alt="Dosage — 11" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/12.png" alt="Dosage — 12" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/13.png" alt="Dosage — 13" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/14.png" alt="Dosage — 14" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/15.png" alt="Dosage — 15" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/16.png" alt="Dosage — 16" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/17.png" alt="Dosage — 17" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Dosage/18.png" alt="Dosage — 18" loading="lazy"/></div>
+</div>
+
+<div class="cs-end">
+  <span class="cs-end-label">End of case study</span>
+  <span class="cs-end-title">Dosage</span>
+  <a href="projects.html" class="cs-end-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Projects
+  </a>
+</div>
+
+<script>
+var nav   = document.getElementById('cs-nav');
+var prog  = document.getElementById('cs-prog');
+var wraps = document.querySelectorAll('.cs-img-wrap');
+
+function onScroll() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
+
+  if (window.scrollY > 20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+
+  var current = 0;
+  wraps.forEach(function(w, i) {
+    if (w.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
+  });
+  
+  wraps.forEach(function(w) {
+    if (w.getBoundingClientRect().top < window.innerHeight * 0.92) w.classList.add('visible');
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('load', onScroll);
+onScroll();
+</script>
+</body>
+</html>

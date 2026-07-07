@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>All Projects — ader</title>
+
+<script>
+var FILES = { logo: "logo.png" };
+var ALL_PROJECTS = [
+  { id:1,  name:"E-Waste Data Viz",        file:"E-Waste Data Viz.jpg",        link:null,                         tags:["Data Visualization","Information Design","Research"] },
+  { id:2,  name:"Nest.life",               file:"Nest.life.jpg",               link:"nest-life.html",             tags:["Brand Architecture","Systems Design","Brand Strategy"] },
+  { id:3,  name:"Son of Sahyan",           file:"Son of Sahyan.jpg",           link:"son-of-sahyan.html",         tags:["Visual Storytelling","Interactive Web","Illustration"] },
+  { id:4,  name:"Haystack Analytics",      file:"Haystack Analytics.jpg",      link:"haystack-analytics.html",                         tags:["UI/UX Design","Web Redesign","Interaction Design"] },
+  { id:5,  name:"Elix Whiskey",            file:"Elix Whiskey.jpg",            link:"elix.html",                  tags:["Brand Strategy","Art Direction","Visual Identity"] },
+  { id:6,  name:"Dosage",                  file:"Dosage.jpg",                  link:"dosage.html",                tags:["Editorial Design","Information Layout","Typography Systems"] },
+  { id:7,  name:"VR Game",                 file:"VR Game.jpg",                 link:null,                         tags:["Game Design","Interaction Design","3D"] },
+  { id:8,  name:"Illustrations",           file:"Illustrations.jpg",           link:"illustrations.html",         tags:["Illustration","Digital Art","Visual Storytelling"] },
+  { id:9,  name:"Layouts",                 file:"Layouts.jpg",                 link:null,                         tags:["Editorial Design","Layout","Typography"] },
+  { id:10, name:"Reactions",               file:"Reactions.jpg",               link:null,                         tags:["Motion Design","Interaction","UI"] },
+  { id:11, name:"Haystack Analytics Report",file:"Haystack Analytics Report.jpg",link:"haystack-analytics-report.html", tags:["Data Visualization","Information Design","Report"] },
+  { id:12, name:"Logo Designs",            file:"Logo Designs.jpg",            link:null,                         tags:["Brand Identity","Logo","Visual Design"] },
+  { id:13, name:"Architecture",            file:"Architecture.jpg",            link:null,                         tags:["Architecture","Spatial Design","Drawing"] },
+  { id:14, name:"CEED",                    file:"CEED.jpg",                    link:null,                         tags:["Design Thinking","Research","Portfolio"] },
+  { id:15, name:"Chalo",                   file:"Chalo.jpg",                   link:null,                         tags:["Branding","Product Design","Strategy"] },
+  { id:16, name:"Project 16",              file:"Project 16.jpg",              link:null,                         tags:["Coming Soon"] },
+];
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<style>
+@font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;}
+html{scroll-behavior:auto;}
+body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
+
+/* ── Cursor bubble ── */
+#cur-bubble{
+  position:fixed;pointer-events:none;z-index:9999;
+  background:#fff;color:#0a0a0a;
+  font-family:'Host Grotesk',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:.02em;
+  padding:6px 14px 6px 10px;border-radius:100px;
+  white-space:nowrap;opacity:0;
+  transform:translate(18px,-50%) scale(.88);
+  transform-origin:left center;
+  transition:opacity .16s ease,transform .2s cubic-bezier(.23,1,.32,1);
+  display:flex;align-items:center;gap:6px;
+  top:-300px;left:-300px;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+#cur-bubble.show{opacity:1;transform:translate(18px,-50%) scale(1);}
+.cb-blink{
+  display:inline-block;width:1.5px;height:13px;
+  background:#0a0a0a;animation:cblink .65s step-end infinite;flex-shrink:0;
+}
+@keyframes cblink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── Nav ── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  height:52px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 2.2rem;
+  background:#000;
+}
+#nav-logo-img{height:26px;width:auto;}
+.nav-links{display:flex;gap:2.4rem;list-style:none;}
+.nav-links a{
+  font-size:.7rem;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:#fff;text-decoration:none;
+  transition:opacity .2s;
+}
+.nav-links a:hover{opacity:.6;}
+
+/* ── Progress bar ── */
+#prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;}
+
+/* ── Page wrapper ── */
+#page{padding-top:52px;background:#0a0a0a;}
+
+/* ── Page header — matches index works-header ── */
+.page-header{
+  padding:3.5rem 2.4rem 3rem;
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:2rem;
+}
+.page-title{
+  font-family:'PP Mori',sans-serif;
+  color:#c8a96e;line-height:.92;
+}
+.page-title-small{display:block;font-size:33px;font-weight:400;letter-spacing:-.01em;}
+.page-title-big{display:block;font-size:66.6px;font-weight:600;letter-spacing:-.03em;}
+.page-sub{
+  font-family:'Host Grotesk',sans-serif;
+  font-size:13px;font-weight:400;letter-spacing:.01em;
+  line-height:1.75;text-align:right;padding-bottom:.3rem;
+}
+.page-sub-light{color:rgba(255,255,255,.4);display:block;}
+.page-sub-gold{color:#c8a96e;display:block;}
+
+/* ── Back link ── */
+.back-link{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:0 2.4rem 1.5rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+  text-decoration:none;transition:color .2s;
+}
+.back-link:hover{color:#fff;}
+.back-link svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ── Project grid — exact match to index ── */
+.proj-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  padding:0 2.4rem 4rem;
+}
+.proj-slot{display:flex;flex-direction:column;cursor:pointer;min-width:0;}
+.proj-cell{
+  position:relative;background:#0a0a0a;
+  border:1px solid #535353;border-radius:0;
+  overflow:hidden;flex-shrink:0;
+}
+.proj-img-wrap{padding:14px;}
+.proj-img-area{
+  width:100%;aspect-ratio:16/10;
+  overflow:hidden;position:relative;background:#111;
+}
+.proj-img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s cubic-bezier(.23,1,.32,1);
+  transform-origin:center center;
+}
+.proj-overlay{position:absolute;inset:0;z-index:2;}
+.proj-img-2{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;
+  transition:opacity .55s ease,transform .7s cubic-bezier(.23,1,.32,1);
+  z-index:3;
+}
+.proj-meta{
+  padding:1.1rem 14px 1.6rem 14px;
+  display:flex;align-items:flex-start;
+  justify-content:space-between;gap:2rem;
+}
+.proj-name{
+  font-family:'PP Mori',sans-serif;
+  font-size:30.6px;font-weight:600;letter-spacing:-.01em;
+  text-transform:none;color:#fff;line-height:1.05;
+  flex-shrink:0;white-space:nowrap;
+}
+.proj-name.wrap{white-space:normal;}
+.proj-tags{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding-left:2.8px;}
+.proj-tags span{font-family:'Host Grotesk',sans-serif;font-size:15px;font-weight:400;color:rgba(255,255,255,.7);line-height:1.6;text-align:left;}
+
+/* ── Footer — matches index ── */
+#footer{padding:3rem 2.2rem 2.5rem;border-top:1px solid rgba(255,255,255,.08);}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem;}
+.footer-msg{
+  grid-column:2/5;
+  font-family:'Host Grotesk',sans-serif;
+  font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:400;
+  color:#fff;line-height:1.45;
+}
+#footer-logo-img{height:36px;width:auto;filter:brightness(0) invert(1);}
+.footer-sub{font-family:'Host Grotesk',sans-serif;font-size:.6rem;color:rgba(255,255,255,.28);letter-spacing:.08em;margin-top:.4rem;}
+.footer-links-row{display:flex;justify-content:flex-end;align-items:center;gap:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);}
+.footer-link-group{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;}
+.footer-link-group a{font-family:'Host Grotesk',sans-serif;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+.footer-link-group a:hover{color:#fff;}
+
+/* ── Fade-up ── */
+.fu{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease;}
+.fu.on{opacity:1;transform:translateY(0);}
+
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr;padding:0 1.2rem 2rem;}
+  .page-header{flex-direction:column;align-items:flex-start;padding:2rem 1.2rem 1.5rem;}
+  .footer-top{grid-template-columns:1fr;}
+  .footer-msg{grid-column:1;}
+  .back-link{padding:0 1.2rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur-bubble"><span id="cur-txt"></span><span class="cb-blink"></span></div>
+<div id="prog"></div>
+
+<nav id="nav">
+  <a href="index.html" style="display:flex;align-items:center;">
+    <img id="nav-logo-img" alt="ader"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#works">Work</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#resume">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="page">
+
+  <div class="page-header fu">
+    <h1 class="page-title">
+      <span class="page-title-small">All</span>
+      <span class="page-title-big">Projects</span>
+    </h1>
+    <p class="page-sub">
+      <span class="page-sub-light">A broader collection of</span>
+      <span class="page-sub-gold">branding, editorial, illustration,<br/>interaction design, architecture,<br/>and exploratory work.</span>
+    </p>
+  </div>
+
+  <div class="proj-grid" id="proj-grid"></div>
+
+  <footer id="footer">
+    <div class="footer-top">
+      <div>
+        <img id="footer-logo-img" alt="ader"/>
+        <div class="footer-sub">communication designer</div>
+      </div>
+      <p class="footer-msg">If you've scrolled this far,<br/>take a stretch break,<br/>then tell me what caught your attention.</p>
+    </div>
+    <div class="footer-links-row">
+      <div class="footer-link-group">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Email</a>
+      </div>
+      <div class="footer-link-group">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+'use strict';
+
+document.getElementById('nav-logo-img').src    = FILES.logo;
+document.getElementById('footer-logo-img').src = FILES.logo;
+
+/* ── Build grid ── */
+var grid = document.getElementById('proj-grid');
+ALL_PROJECTS.forEach(function(p) {
+  var slot = document.createElement('div');
+  slot.className = 'proj-slot fu';
+  slot.setAttribute('data-bubble', p.name + (p.tags[0] ? ' — ' + p.tags[0] : ''));
+
+  var tagsHTML  = p.tags.map(function(t){ return '<span>' + t + '</span>'; }).join('');
+  var nameClass = p.name === 'Haystack Analytics' ? 'proj-name wrap' : 'proj-name';
+  var nameText  = p.name === 'Haystack Analytics' ? 'Haystack<br/>Analytics' : p.name;
+
+  slot.innerHTML = [
+    '<div class="proj-cell">',
+      '<div class="proj-img-wrap">',
+        '<div class="proj-img-area">',
+          '<img class="proj-img" alt="' + p.name + '" loading="lazy"/>',
+          '<div class="proj-overlay"></div>',
+        '</div>',
+      '</div>',
+    '</div>',
+    '<div class="proj-meta">',
+      '<div class="' + nameClass + '">' + nameText + '</div>',
+      '<div class="proj-tags">' + tagsHTML + '</div>',
+    '</div>',
+  ].join('');
+
+  var img1 = slot.querySelector('.proj-img');
+  img1.src = p.file;
+  img1.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
+
+  var imgArea = slot.querySelector('.proj-img-area');
+  var img2 = document.createElement('img');
+  img2.className = 'proj-img-2';
+  img2.src = p.file.replace(/(\.[^\.]+)$/, '2$1');
+  img2.alt = p.name + ' — alternate';
+  img2.onerror = function() { img2.style.display = 'none'; };
+  imgArea.appendChild(img2);
+
+  slot.addEventListener('mouseenter', function() {
+    img1.style.transform = 'scale(1.08)';
+    img2.style.transform = 'scale(1.08)';
+    img2.style.opacity   = '1';
+  });
+  slot.addEventListener('mouseleave', function() {
+    img1.style.transform = 'scale(1)';
+    img2.style.transform = 'scale(1)';
+    img2.style.opacity   = '0';
+  });
+
+  if (p.link) {
+    slot.style.cursor = 'pointer';
+    slot.addEventListener('click', function() {
+      sessionStorage.setItem('projectsScrollY', window.scrollY);
+      window.location.href = p.link;
+    });
+  }
+
+  grid.appendChild(slot);
+});
+
+/* ── Progress ── */
+var prog = document.getElementById('prog');
+function updateProgress() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = h > 0 ? (window.scrollY / h * 100).toFixed(2) + '%' : '0%';
+}
+
+/* ── Fade-up ── */
+function triggerFadeUps() {
+  document.querySelectorAll('.fu').forEach(function(el) {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('on');
+  });
+}
+
+window.addEventListener('scroll', function() { updateProgress(); triggerFadeUps(); }, { passive: true });
+window.addEventListener('load', function() { updateProgress(); triggerFadeUps(); });
+triggerFadeUps();
+
+/* ── Cursor bubble ── */
+var bubble = document.getElementById('cur-bubble');
+var curTxt = document.getElementById('cur-txt');
+var bTimer = null;
+function showBubble(msg) {
+  clearTimeout(bTimer);
+  curTxt.textContent = '';
+  bubble.classList.add('show');
+  var i = 0;
+  (function type() {
+    if (i >= msg.length) return;
+    curTxt.textContent += msg[i++];
+    bTimer = setTimeout(type, 36);
+  })();
+}
+function hideBubble() {
+  clearTimeout(bTimer);
+  bubble.classList.remove('show');
+  curTxt.textContent = '';
+}
+window.addEventListener('mousemove', function(e) {
+  bubble.style.left = e.clientX + 'px';
+  bubble.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('[data-bubble]').forEach(function(el) {
+  el.addEventListener('mouseenter', function() { showBubble(el.dataset.bubble); });
+  el.addEventListener('mouseleave', hideBubble);
+});
+
+document.getElementById('nav').style.background = '#000';
+/* ── Restore scroll position on back ── */
+(function() {
+  var saved = sessionStorage.getItem('projectsScrollY');
+  if (saved) {
+    var y = parseInt(saved, 10);
+    sessionStorage.removeItem('projectsScrollY');
+    window.scrollTo(0, y);
+    window.addEventListener('load', function() { window.scrollTo(0, y); });
+  }
+})();
+
+})();
+</script>
+</body>
+</html>

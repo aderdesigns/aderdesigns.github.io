@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Nest.life — Ader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
+
+#cs-nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  height:52px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 2.2rem;
+  background:#000;
+}
+#cs-nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(12px);}
+#cs-nav-logo{height:26px;width:auto;cursor:pointer;}
+.cs-nav-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;opacity:0;transition:opacity .4s ease;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+#cs-nav.scrolled .cs-nav-title{opacity:.5;}
+
+#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
+
+#cs-images{padding-top:52px;}
+.cs-img-wrap{
+  width:100%;display:block;overflow:hidden;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.cs-img-wrap.visible{opacity:1;transform:translateY(0);}
+.cs-img-wrap img{width:100%;height:auto;display:block;}
+
+.cs-end{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:5rem 2rem;gap:1.2rem;border-top:1px solid rgba(255,255,255,.08);
+}
+.cs-end-label{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.cs-end-title{font-size:clamp(1.8rem,5vw,4rem);font-weight:800;letter-spacing:-.02em;color:#fff;text-transform:uppercase;}
+.cs-end-back{
+  margin-top:1rem;
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,.2);
+  padding:.75rem 1.8rem;border-radius:100px;
+  transition:background .2s,border-color .2s;
+}
+.cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+</style>
+</head>
+<body>
+
+<nav id="cs-nav">
+  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
+  <span class="cs-nav-title">Nest.life</span>
+</nav>
+
+<div id="cs-prog"></div>
+
+<div id="cs-images"></div>
+
+<div class="cs-end">
+  <span class="cs-end-label">End of case study</span>
+  <span class="cs-end-title">Nest.life</span>
+  <a href="index.html" class="cs-end-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Portfolio
+  </a>
+</div>
+
+<script>
+var IMAGES = [];
+for (var i = 1; i <= 19; i++) {
+  IMAGES.push('nest life/' + i + '.png');
+}
+
+var container = document.getElementById('cs-images');
+
+IMAGES.forEach(function(src, i) {
+  var wrap = document.createElement('div');
+  wrap.className = 'cs-img-wrap';
+  wrap.dataset.index = i;
+  var img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Nest.life — ' + (i + 1);
+  img.loading = i < 3 ? 'eager' : 'lazy';
+  wrap.appendChild(img);
+  container.appendChild(wrap);
+});
+
+document.getElementById('cs-idx').textContent = '01 / ' + total;
+
+var nav  = document.getElementById('cs-nav');
+var prog = document.getElementById('cs-prog');
+var wraps = document.querySelectorAll('.cs-img-wrap');
+
+function onScroll() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
+
+  if (window.scrollY > 20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+
+  var current = 0;
+  wraps.forEach(function(w, i) {
+    if (w.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
+  });
+  
+  wraps.forEach(function(w) {
+    if (w.getBoundingClientRect().top < window.innerHeight * 0.92) w.classList.add('visible');
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('load', onScroll);
+onScroll();
+</script>
+</body>
+</html>
