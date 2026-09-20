@@ -32,7 +32,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 #cs-nav.scrolled .cs-nav-title{opacity:.5;}
 
 /* ── Progress ── */
-#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
 
 /* ── Images ── */
 #cs-images{padding-top:52px;}
@@ -110,7 +109,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">E-Waste Data Viz</span>
 </nav>
-<div id="cs-prog"></div>
 
 <div id="cs-images">
 
@@ -164,13 +162,11 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 <script>
 var nav   = document.getElementById('cs-nav');
-var prog  = document.getElementById('cs-prog');
 var allItems = document.querySelectorAll('.cs-img-wrap, .cs-writeup, .cs-video-wrap');
 var total = 11; /* 6 PNGs + writeup + 4 videos */
 
 function onScroll() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
   if (window.scrollY > 20) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
 

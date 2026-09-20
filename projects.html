@@ -8,22 +8,20 @@
 <script>
 var FILES = { logo: "logo.png" };
 var ALL_PROJECTS = [
-  { id:1,  name:"E-Waste Data Viz",        file:"E-Waste Data Viz.jpg",        link:"e-waste-data-viz.html",                         tags:["Data Visualization","Information Design","Research"] },
-  { id:2,  name:"Nest.life",               file:"Nest.life.jpg",               link:"nest-life.html",             tags:["Brand Architecture","Systems Design","Brand Strategy"] },
-  { id:3,  name:"Son of Sahyan",           file:"Son of Sahyan.jpg",           link:"son-of-sahyan.html",         tags:["Visual Storytelling","Interactive Web","Illustration"] },
-  { id:4,  name:"Haystack Analytics",      file:"Haystack Analytics.jpg",      link:"haystack-analytics.html",                         tags:["UI/UX Design","Web Redesign","Interaction Design"] },
-  { id:5,  name:"Elix Whiskey",            file:"Elix Whiskey.jpg",            link:"elix.html",                  tags:["Brand Strategy","Art Direction","Visual Identity"] },
-  { id:6,  name:"Dosage",                  file:"Dosage.jpg",                  link:"dosage.html",                tags:["Editorial Design","Information Layout","Typography Systems"] },
-  { id:7,  name:"VR Game",                 file:"VR Game.jpg",                 link:"https://www.behance.net/gallery/213594893/Drones-of-Dawn-Gesture-controlled-VR-Game",                         tags:["Game Design","Interaction Design","3D"] },
-  { id:8,  name:"Illustrations",           file:"Illustrations.jpg",           link:"illustrations.html",         tags:["Illustration","Digital Art","Visual Storytelling"] },
-  { id:9,  name:"Layouts",                 file:"Layouts.jpg",                 link:null,                         tags:["Editorial Design","Layout","Typography"] },
-  { id:10, name:"Reactions",               file:"Reactions.jpg",               link:null,                         tags:["Motion Design","Interaction","UI"] },
-  { id:11, name:"Haystack Analytics Report",file:"Haystack Analytics Report.jpg",link:"haystack-analytics-report.html", tags:["Data Visualization","Information Design","Report"] },
-  { id:12, name:"Logo Designs",            file:"Logo Designs.jpg",            link:"https://www.behance.net/gallery/190601975/Logo-Design-Next-Bharat-Ventures",                         tags:["Brand Identity","Logo","Visual Design"] },
-  { id:13, name:"Architecture",            file:"Architecture.jpg",            link:"https://www.behance.net/gallery/188903281/Architecture-Portfolio-2018-2021",                         tags:["Architecture","Spatial Design","Drawing"] },
-  { id:14, name:"CEED",                    file:"CEED.jpg",                    link:null,                         tags:["Design Thinking","Research","Portfolio"] },
-  { id:15, name:"Chalo",                   file:"Chalo.jpg",                   link:"https://www.behance.net/gallery/169979377/Chalo-Fitness-app-for-all-UX-UI-design-project",                         tags:["Branding","Product Design","Strategy"] },
-  { id:16, name:"Project 16",              file:"Project 16.jpg",              link:null,                         tags:["Coming Soon"] },
+  { id:1,  name:"Mapping E-Waste",      file:"E-Waste Data Viz.jpg",        link:"e-waste-data-viz.html",         tags:["Information Design","Systems Thinking","UX Strategy"],  bubble:"Making e-waste infrastructure legible." },
+  { id:2,  name:"Nest.life",               file:"Nest.life.jpg",               link:"nest-life.html",             tags:["Brand Strategy","Visual Identity","Art Direction"],  bubble:"Nestlé's AI-powered health companion." },
+  { id:3,  name:"Son of Sahyan",           file:"Son of Sahyan.jpg",           link:"son-of-sahyan.html",         tags:["Illustration","Motion Design","Interaction Design"],  bubble:"Interactive parallax graphic novel." },
+  { id:4,  name:"Haystack Analytics",      file:"Haystack Analytics.jpg",      link:"haystack-analytics.html",                         tags:["UI/UX Design","Information Design","Editorial Design"],  bubble:"Translating complex genomics across all mediums." },
+  { id:5,  name:"Elix",            file:"Elix Whiskey.jpg",            link:"elix.html",                  tags:["Brand Strategy","Art Direction","Packaging Design"],  bubble:"Crafting a premium Indian whiskey identity." },
+  { id:9,  name:"Layouts",                 file:"Layouts.jpg",                 link:"layouts.html",               tags:["Editorial Design","Layout","Typography"],  bubble:"Editorial layouts across print and screen." },
+  { id:6,  name:"Dosage",                  file:"Dosage.jpg",                  link:"dosage.html",                tags:["Brand Strategy","Visual Identity","Packaging Design"],  bubble:"The \"just right\" wellness brand identity." },
+  { id:7,  name:"Drones of Dawn",                 file:"VR Game.jpg",                 link:"https://www.behance.net/gallery/213594893/Drones-of-Dawn-Gesture-controlled-VR-Game",                         tags:["VR Design","Interaction Design","3D Modeling"],  bubble:"Gesture-controlled VR game." },
+  { id:8,  name:"Illustrations",           file:"Illustrations.jpg",           link:"illustrations.html",         tags:["Digital Illustration","Visual Storytelling","Character Design"],  bubble:"Collection of narrative digital illustrations." },
+  { id:10, name:"Explorations",               file:"Reactions.jpg",               link:"reactions.html",                         tags:["UI/UX Design","Packaging Design","Conceptual Design"],  bubble:"Rapid concepts across digital and physical." },
+  { id:12, name:"Brand Marks",            file:"Logo Designs.jpg",            link:"logo-designs.html",                         tags:["Visual Identity","Brand Storytelling","Logo Design"],  bubble:"Collection of purpose-driven brand marks." },
+  { id:13, name:"Architecture Portfolio",            file:"Architecture.jpg",            link:"https://www.behance.net/gallery/188903281/Architecture-Portfolio-2018-2021",                         tags:["Architectural Design","3D Visualization","Spatial Planning"],  bubble:"Selected architectural works from 2018-2021." },
+  { id:14, name:"CEED",                    file:"CEED.jpg",                    link:"https://www.behance.net/gallery/169979265/CEED-IIT-Design-portfolio",         tags:["Design Thinking","Research","Portfolio"] },
+  { id:15, name:"Chalo",                   file:"Chalo.jpg",                   link:"https://www.behance.net/gallery/169979377/Chalo-Fitness-app-for-all-UX-UI-design-project",                         tags:["User Research","Inclusive Design","UI/UX Design"],  bubble:"Accessible fitness app for older adults." },
 ];
 </script>
 
@@ -78,7 +76,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .nav-links a:hover{opacity:.6;}
 
 /* ── Progress bar ── */
-#prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;}
 
 /* ── Page wrapper ── */
 #page{padding-top:52px;background:#0a0a0a;}
@@ -159,19 +156,39 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .proj-tags{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding-left:2.8px;}
 .proj-tags span{font-family:'Host Grotesk',sans-serif;font-size:15px;font-weight:400;color:rgba(255,255,255,.7);line-height:1.6;text-align:left;}
 
-/* ── Footer — matches index ── */
-#footer{padding:3rem 2.2rem 2.5rem;border-top:1px solid rgba(255,255,255,.08);}
-.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem;}
+/* ── Footer ── */
+#footer{padding:5rem 2.2rem 5rem;border-top:1px solid rgba(255,255,255,.08);}
+.footer-top{
+  display:grid;
+  grid-template-columns:200px minmax(0,1fr) 80px;
+  align-items:start;
+  column-gap:1.5rem;
+  position:relative;
+}
+.footer-logo-col{
+  grid-column:1;
+  align-self:start;
+}
+#footer-logo-img{height:26px;width:auto;filter:brightness(0) invert(1);display:block;}
+.footer-sub{font-family:'Host Grotesk',sans-serif;font-size:.6rem;color:rgba(255,255,255,.28);letter-spacing:.08em;margin-top:.4rem;}
 .footer-msg{
-  grid-column:2/5;
+  grid-column:2;
+  align-self:start;
+  margin:0;
+  padding:0;
   font-family:'Host Grotesk',sans-serif;
   font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:400;
   color:#fff;line-height:1.45;
 }
-#footer-logo-img{height:36px;width:auto;filter:brightness(0) invert(1);}
-.footer-sub{font-family:'Host Grotesk',sans-serif;font-size:.6rem;color:rgba(255,255,255,.28);letter-spacing:.08em;margin-top:.4rem;}
-.footer-links-row{display:flex;justify-content:flex-end;align-items:center;gap:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);}
-.footer-link-group{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;}
+.footer-link-group{
+  grid-column:3;
+  align-self:end;
+  justify-self:start;
+  display:flex;flex-direction:column;
+  align-items:flex-start;gap:.3rem;
+  flex-shrink:0;
+  padding:0 0 .02rem 0;
+}
 .footer-link-group a{font-family:'Host Grotesk',sans-serif;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
 .footer-link-group a:hover{color:#fff;}
 
@@ -182,8 +199,14 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 @media(max-width:600px){
   .proj-grid{grid-template-columns:1fr;padding:0 1.2rem 2rem;}
   .page-header{flex-direction:column;align-items:flex-start;padding:2rem 1.2rem 1.5rem;}
-  .footer-top{grid-template-columns:1fr;}
-  .footer-msg{grid-column:1;}
+  .footer-top{
+    grid-template-columns:1fr;
+    row-gap:2rem;
+    min-height:0;
+  }
+  .footer-logo-col,.footer-msg,.footer-link-group{grid-column:1;}
+  .footer-msg{align-self:start;}
+  .footer-link-group{align-self:start;justify-self:start;}
   .back-link{padding:0 1.2rem 1rem;}
 }
 </style>
@@ -191,7 +214,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 <body>
 
 <div id="cur-bubble"><span id="cur-txt"></span><span class="cb-blink"></span></div>
-<div id="prog"></div>
 
 <nav id="nav">
   <a href="index.html" style="display:flex;align-items:center;">
@@ -219,24 +241,18 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <div class="proj-grid" id="proj-grid"></div>
 
+  <!-- FOOTER -->
   <footer id="footer">
     <div class="footer-top">
-      <div>
+      <div class="footer-logo-col" style="align-self:flex-start;flex-shrink:0;">
         <img id="footer-logo-img" alt="ader"/>
         <div class="footer-sub">communication designer</div>
       </div>
-      <p class="footer-msg">If you've scrolled this far,<br/>take a stretch break,<br/>then tell me what caught your attention.</p>
-    </div>
-    <div class="footer-links-row">
+      <p class="footer-msg">You didn't scroll this far just to close the tab.<br/>Tell me what you're looking for ;)</p>
       <div class="footer-link-group">
-        <a href="#">LinkedIn</a>
-        <a href="#">Instagram</a>
-        <a href="#">Email</a>
-      </div>
-      <div class="footer-link-group">
-        <a href="#">LinkedIn</a>
-        <a href="#">Instagram</a>
-        <a href="#">Email</a>
+        <a href="https://www.linkedin.com/in/adarsh-s-a38714173/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/ader.___/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://mail.google.com/mail/?view=cm&to=ader.sandram@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
       </div>
     </div>
   </footer>
@@ -255,7 +271,7 @@ var grid = document.getElementById('proj-grid');
 ALL_PROJECTS.forEach(function(p) {
   var slot = document.createElement('div');
   slot.className = 'proj-slot fu';
-  slot.setAttribute('data-bubble', p.name + (p.tags[0] ? ' — ' + p.tags[0] : ''));
+  slot.setAttribute('data-bubble', p.bubble ? p.bubble : p.name + (p.tags[0] ? ' — ' + p.tags[0] : ''));
 
   var tagsHTML  = p.tags.map(function(t){ return '<span>' + t + '</span>'; }).join('');
   var nameClass = p.name === 'Haystack Analytics' ? 'proj-name wrap' : 'proj-name';
@@ -315,10 +331,8 @@ ALL_PROJECTS.forEach(function(p) {
 });
 
 /* ── Progress ── */
-var prog = document.getElementById('prog');
 function updateProgress() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = h > 0 ? (window.scrollY / h * 100).toFixed(2) + '%' : '0%';
 }
 
 /* ── Fade-up ── */

@@ -30,7 +30,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 }
 #cs-nav.scrolled .cs-nav-title{opacity:.5;}
 
-#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
 
 #cs-images{padding-top:52px;}
 
@@ -114,7 +113,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">Son of Sahyan</span>
 </nav>
-<div id="cs-prog"></div>
 
 <div id="cs-images">
 
@@ -142,22 +140,22 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- 4 MP4 videos -->
   <div class="cs-video-wrap">
-    <video controls preload="none">
+    <video controls muted autoplay playsinline preload="auto">
       <source src="son of sahyan/1.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none">
+    <video controls muted autoplay playsinline preload="auto">
       <source src="son of sahyan/2.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none">
+    <video controls muted autoplay playsinline preload="auto">
       <source src="son of sahyan/3.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none">
+    <video controls muted autoplay playsinline preload="auto">
       <source src="son of sahyan/4.mp4" type="video/mp4"/>
     </video>
   </div>
@@ -176,13 +174,11 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 <script>
 var nav   = document.getElementById('cs-nav');
-var prog  = document.getElementById('cs-prog');
 var imgWraps = document.querySelectorAll('.cs-img-wrap');
 var allFade  = document.querySelectorAll('.cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap');
 
 function onScroll() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
   if (window.scrollY > 20) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
 
@@ -195,6 +191,18 @@ function onScroll() {
     if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
   });
 }
+
+/* Autoplay videos on scroll into view */
+var videoObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    var vid = entry.target;
+    if (entry.isIntersecting) { vid.play(); }
+    else { vid.pause(); }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.cs-video-wrap video').forEach(function(v) {
+  videoObserver.observe(v);
+});
 
 window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('load', onScroll);

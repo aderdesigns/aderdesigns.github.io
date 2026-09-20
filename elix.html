@@ -27,7 +27,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   position:absolute;left:50%;transform:translateX(-50%);
 }
 #cs-nav.scrolled .cs-nav-title{opacity:.5;}
-#cs-prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;transition:width .08s linear;}
 #cs-images{padding-top:52px;}
 .cs-img-wrap{
   width:100%;display:block;overflow:hidden;
@@ -58,7 +57,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">Elix Whiskey</span>
 </nav>
-<div id="cs-prog"></div>
 
 <div id="cs-images">
   <div class="cs-img-wrap"><img src="ELIX/0.jpg"  alt="Elix Whiskey — 1"  loading="eager"/></div>
@@ -99,12 +97,10 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 <script>
 var nav   = document.getElementById('cs-nav');
-var prog  = document.getElementById('cs-prog');
 var wraps = document.querySelectorAll('.cs-img-wrap');
 
 function onScroll() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = (h > 0 ? (window.scrollY / h * 100) : 0).toFixed(2) + '%';
   if (window.scrollY > 20) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
   wraps.forEach(function(w) {

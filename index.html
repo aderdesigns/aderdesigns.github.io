@@ -21,9 +21,9 @@ var PROJECTS = [
   { id:1, file:"E-Waste Data Viz.jpg",     link:"e-waste-data-viz.html" },
   { id:2, file:"Nest.life.jpg",            link:"nest-life.html" },
   { id:3, file:"Son of Sahyan.jpg",        link:"son-of-sahyan.html" },
-  { id:4, file:"Haystack Analytics.jpg",   link:null },
+  { id:4, file:"Haystack Analytics.jpg",   link:"haystack-analytics.html" },
   { id:5, file:"Elix Whiskey.jpg",         link:"elix.html" },
-  { id:6, file:"Dosage.jpg",               link:null },
+  { id:6, file:"Layouts.jpg",                 link:"layouts.html" },
 ];
 </script>
 <!-- ═══════════════════════════════════════════════════════
@@ -44,6 +44,126 @@ var PROJECTS = [
   src:url('PPMori-Semibold.woff2') format('woff2');
   font-weight:600;font-style:normal;font-display:swap;
 }
+
+
+
+<style>
+
+/* ── Minimal tech loading screen ── */
+#portfolio-loader{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  min-height:100svh;
+  background:#fff;
+  color:#0a0a0a;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  pointer-events:auto;
+  opacity:1;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .9s cubic-bezier(.77,0,.18,1);
+}
+#portfolio-loader.is-done{
+  clip-path:inset(0 0 100% 0);
+  pointer-events:none;
+}
+#portfolio-loader::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.34;
+  background:
+    linear-gradient(rgba(10,10,10,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(10,10,10,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 22%,#000 78%,transparent 100%);
+}
+#portfolio-loader::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  height:1px;
+  background:rgba(10,10,10,.055);
+  pointer-events:none;
+}
+.pl-core{
+  position:relative;
+  z-index:1;
+  width:min(88vw,520px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.pl-logo{
+  display:block;
+  width:min(78vw,430px);
+  height:auto;
+  opacity:0;
+  transform:translateY(10px);
+  animation:pl-logo-in .8s cubic-bezier(.23,1,.32,1) .05s forwards;
+}
+@keyframes pl-logo-in{
+  to{opacity:1;transform:translateY(0);}
+}
+.pl-status{
+  width:min(72vw,330px);
+  margin-top:24px;
+}
+.pl-track{
+  position:relative;
+  width:100%;
+  height:2px;
+  background:#d9d9d9;
+  overflow:hidden;
+}
+.pl-fill{
+  display:block;
+  width:0;
+  height:100%;
+  background:#ed1c24;
+  transition:width .16s linear;
+  transform-origin:left center;
+}
+.pl-meta{
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  width:100%;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(10,10,10,.46);
+}
+.pl-page{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.pl-percent{
+  color:#0a0a0a;
+  font-variant-numeric:tabular-nums;
+}
+@media (max-width:600px){
+  #portfolio-loader::before{background-size:22px 22px;}
+  .pl-logo{width:min(82vw,340px);}
+  .pl-status{width:min(76vw,280px);margin-top:18px;}
+  .pl-meta{font-size:8px;letter-spacing:.12em;}
+}
+@media (prefers-reduced-motion:reduce){
+  .pl-logo{animation:none;opacity:1;transform:none;}
+  #portfolio-loader{transition:none;}
+  .pl-fill{transition:none;}
+}
+
 </style>
 
 <style>
@@ -79,7 +199,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   position:fixed;top:0;left:0;right:0;z-index:600;
   height:52px;display:flex;align-items:center;
   justify-content:space-between;padding:0 2.2rem;
-  background:#000;
+  background:transparent;
+  transition:background .45s ease;
+}
+#nav.nav-solid{
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 #nav-logo-img{height:26px;width:auto;}
 .nav-links{display:flex;gap:2.4rem;list-style:none;}
@@ -91,20 +217,29 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .nav-links a:hover{opacity:.6;}
 
 /* ── Progress bar ── */
-#prog{position:fixed;top:52px;left:0;height:2px;width:0%;background:#c8a96e;z-index:590;}
 
 /* ── GIF hero ── */
 #gif-hero{
-  position:sticky;top:0;
+  position:fixed;top:0;
   width:100vw;
   height:calc(100vw * (1087/1728));
   max-height:100vh;
   z-index:10;overflow:hidden;background:#0a0a0a;
 }
-#gif-img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;}
+#gif-img{
+  width:100%;height:100%;object-fit:cover;object-position:center center;
+  display:block;
+  transform:translate3d(0,0,0);
+  will-change:transform;
+  transform-origin:center center;
+}
+
+/* Fixed hero + slow image-only parallax. No scaling. */
+#gif-hero{will-change:auto;}
+
 
 /* ── Portfolio ── */
-#portfolio{position:relative;z-index:20;background:#0a0a0a;}
+#portfolio{position:relative;z-index:20;background:#0a0a0a;margin-top:calc(100vw * (1087/1728));}
 
 /* Works header */
 .works-header{
@@ -243,7 +378,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .photo-ph{font-size:5rem;font-weight:800;color:rgba(255,255,255,.06);letter-spacing:-.05em;}
 
 /* Resume */
-#resume{padding:0 2.2rem 6rem;border-bottom:1px solid rgba(255,255,255,.08);}
+#resume{padding:0 2.2rem 0;border-bottom:1px solid rgba(255,255,255,.08);}
 .res-row{
   display:grid;grid-template-columns:200px 1fr 200px;gap:1.5rem;
   padding:2.2rem 0;border-bottom:1px solid rgba(255,255,255,.06);
@@ -258,28 +393,42 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .res-pts li::before{content:'•';position:absolute;left:0;}
 .res-co{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);text-align:right;padding-top:.1rem;}
 
-/* Footer */
-#footer{padding:3rem 2.2rem 2.5rem;border-top:1px solid rgba(255,255,255,.08);}
+/* ── Footer ── */
+#footer{padding:5rem 2.2rem 5rem;border-top:1px solid rgba(255,255,255,.08);}
 .footer-top{
-  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
-  gap:2rem;margin-bottom:3rem;
+  display:grid;
+  grid-template-columns:200px minmax(0,1fr) 80px;
+  align-items:start;
+  column-gap:1.5rem;
+  position:relative;
 }
+.footer-logo-col{
+  grid-column:1;
+  align-self:start;
+}
+#footer-logo-img{height:26px;width:auto;filter:brightness(0) invert(1);display:block;}
+.footer-sub{font-family:'Host Grotesk',sans-serif;font-size:.6rem;color:rgba(255,255,255,.28);letter-spacing:.08em;margin-top:.4rem;}
 .footer-msg{
-  grid-column:2/5;
+  grid-column:2;
+  align-self:start;
+  margin:0;
+  padding:0;
   font-family:'Host Grotesk',sans-serif;
   font-size:clamp(1.2rem,2.2vw,1.8rem);font-weight:400;
   color:#fff;line-height:1.45;
 }
-#footer-logo-img{height:36px;width:auto;filter:brightness(0) invert(1);}
-.footer-sub{font-family:'Host Grotesk',sans-serif;font-size:.6rem;color:rgba(255,255,255,.28);letter-spacing:.08em;margin-top:.4rem;}
-.footer-links-row{
-  display:flex;justify-content:flex-end;align-items:center;gap:3rem;
-  padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);
+.footer-link-group{
+  grid-column:3;
+  align-self:end;
+  justify-self:start;
+  display:flex;flex-direction:column;
+  align-items:flex-start;gap:.3rem;
+  flex-shrink:0;
+  padding:0 0 .02rem 0;
 }
-.footer-link-group{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;}
-.footer-link-group span{font-family:'Host Grotesk',sans-serif;font-size:.7rem;color:rgba(255,255,255,.28);margin-bottom:.2rem;}
 .footer-link-group a{font-family:'Host Grotesk',sans-serif;font-size:.85rem;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
 .footer-link-group a:hover{color:#fff;}
+
 
 /* Fade-up */
 .fu{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease;}
@@ -290,15 +439,164 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   #about{grid-template-columns:1fr;}
   .res-row{grid-template-columns:1fr;gap:.4rem;}
   .res-co{text-align:left;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-top{
+    grid-template-columns:1fr;
+    row-gap:2rem;
+    min-height:0;
+  }
+  .footer-logo-col,.footer-msg,.footer-link-group{grid-column:1;}
+  .footer-msg{align-self:start;}
+  .footer-link-group{align-self:start;justify-self:start;}
 }
+
+
+/* ── Mobile responsive system ── */
+@media (max-width: 767px){
+  body{min-width:0;}
+  #nav{
+    height:50px;
+    padding:0 16px;
+  }
+  #nav-logo-img{height:22px;}
+  .nav-links{gap:1.1rem;}
+  .nav-links a{
+    font-size:.58rem;
+    letter-spacing:.11em;
+  }
+  #gif-hero{
+    height:calc(100vw * (1087/1728));
+    max-height:72svh;
+  }
+  #gif-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  #portfolio{
+    margin-top:calc(100vw * (1087/1728));
+  }
+  .works-header{
+    padding:2.5rem 18px 2rem;
+    align-items:flex-start;
+    flex-direction:column;
+    gap:1rem;
+  }
+  .works-title-small{font-size:25px;}
+  .works-title-big{
+    font-size:clamp(42px,14vw,58px);
+    line-height:.92;
+  }
+  .works-sub{
+    font-size:11px;
+    line-height:1.55;
+    text-align:left;
+    padding-bottom:0;
+  }
+  .proj-grid{
+    grid-template-columns:1fr;
+    gap:26px;
+    padding:0 16px 1rem;
+  }
+  .proj-img-wrap{padding:10px;}
+  .proj-meta{
+    padding:1rem 10px 1.2rem;
+    gap:1rem;
+    flex-direction:column;
+  }
+  .proj-name{
+    font-size:25px;
+    white-space:normal;
+  }
+  .proj-tags{
+    padding-left:0;
+  }
+  .proj-tags span{font-size:12px;line-height:1.5;}
+  .show-more-wrap{
+    padding:2.5rem 0 3rem;
+  }
+  .show-more-btn{
+    font-size:.58rem;
+    padding:.8rem 1.45rem;
+  }
+  #about{
+    padding:3.5rem 18px 4rem;
+    grid-template-columns:1fr;
+    gap:2.5rem;
+  }
+  .about-gif img{height:95px;max-width:100%;object-fit:contain;}
+  .about-name{
+    font-size:clamp(42px,13vw,58px);
+    line-height:.92;
+  }
+  .about-ader{font-size:25px;}
+  .about-tag{
+    font-size:1.15rem;
+    line-height:1.35;
+  }
+  .about-body{
+    font-size:.84rem;
+    line-height:1.75;
+    max-width:none;
+  }
+  .about-edu{font-size:.9rem;line-height:1.6;}
+  .about-photo{width:100%;aspect-ratio:3/4;}
+  #resume{padding:0 18px;}
+  .res-row{
+    grid-template-columns:1fr;
+    gap:.55rem;
+    padding:1.7rem 0;
+  }
+  .res-date,.res-co{font-size:.6rem;text-align:left;}
+  .res-role{font-size:.72rem;}
+  .res-pts li{
+    font-size:.82rem;
+    line-height:1.65;
+  }
+  #footer{padding:4rem 18px 4rem;}
+  .footer-top{
+    grid-template-columns:1fr;
+    row-gap:2rem;
+    min-height:0;
+  }
+  .footer-logo-col,.footer-msg,.footer-link-group{grid-column:1;}
+  .footer-msg{
+    font-size:clamp(1.25rem,6vw,1.7rem);
+    padding:0;
+    line-height:1.4;
+  }
+  .footer-link-group{
+    align-self:start;
+    justify-self:start;
+    align-items:flex-start;
+  }
+  .footer-link-group a{font-size:.8rem;}
+  #cur-bubble{display:none;}
+}
+
 </style>
 </head>
 <body>
 
+
+<!-- Portfolio Loading Screen -->
+<div id="portfolio-loader" aria-hidden="true">
+  <div class="pl-core">
+    <img class="pl-logo" src="logo.png" alt="ader"/>
+    <div class="pl-status">
+      <div class="pl-track">
+        <span class="pl-fill" id="pl-progress-fill"></span>
+      </div>
+      <div class="pl-meta">
+        <span class="pl-page" id="pl-context">INITIALIZING</span>
+        <span class="pl-percent" id="pl-percent">00%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Cursor bubble -->
 <div id="cur-bubble"><span id="cur-txt"></span><span class="cb-blink"></span></div>
-<div id="prog"></div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -306,9 +604,9 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     <img id="nav-logo-img" alt="ader"/>
   </a>
   <ul class="nav-links">
-    <li><a href="#works"  data-bubble="see my work">Work</a></li>
-    <li><a href="#about"  data-bubble="get to know me">About</a></li>
-    <li><a href="#footer" data-bubble="get in touch">Contact</a></li>
+    <li><a href="#works">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#footer">Contact</a></li>
   </ul>
 </nav>
 
@@ -331,63 +629,63 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
     <div class="proj-grid">
 
-      <div class="proj-slot" data-bubble="E-Waste Data Viz — Data Visualization">
+      <div class="proj-slot" data-bubble="Making e-waste infrastructure legible.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
           <img id="proj-img-1" class="proj-img" alt="E-Waste Data Viz"/>
         </div></div></div>
         <div class="proj-meta">
-          <div class="proj-name">E-Waste Data Viz</div>
-          <div class="proj-tags"><span>Data Visualization</span><span>Information Design</span><span>Research</span></div>
+          <div class="proj-name">Mapping E-Waste</div>
+          <div class="proj-tags"><span>Information Design</span><span>Systems Thinking</span><span>UX Strategy</span></div>
         </div>
       </div>
 
-      <div class="proj-slot" data-bubble="Nest.life — Brand Architecture">
+      <div class="proj-slot" data-bubble="Nestlé's AI-powered health companion.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
           <img id="proj-img-2" class="proj-img" alt="Nest.life"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Nest.life</div>
-          <div class="proj-tags"><span>Brand Architecture</span><span>Systems Design</span><span>Brand Strategy</span></div>
+          <div class="proj-tags"><span>Brand Strategy</span><span>Visual Identity</span><span>Art Direction</span></div>
         </div>
       </div>
 
-      <div class="proj-slot" data-bubble="Son of Sahyan — Visual Storytelling">
+      <div class="proj-slot" data-bubble="Interactive parallax graphic novel.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
           <img id="proj-img-3" class="proj-img" alt="Son of Sahyan"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Son of Sahyan</div>
-          <div class="proj-tags"><span>Visual Storytelling</span><span>Interactive Web</span><span>Illustration</span></div>
+          <div class="proj-tags"><span>Illustration</span><span>Motion Design</span><span>Interaction Design</span></div>
         </div>
       </div>
 
-      <div class="proj-slot" data-bubble="Haystack Analytics — UI/UX Design">
+      <div class="proj-slot" data-bubble="Translating complex genomics across all mediums.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
           <img id="proj-img-4" class="proj-img" alt="Haystack Analytics"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name wrap">Haystack<br/>Analytics</div>
-          <div class="proj-tags"><span>UI/UX Design</span><span>Web Redesign</span><span>Interaction Design</span></div>
+          <div class="proj-tags"><span>UI/UX Design</span><span>Information Design</span><span>Editorial Design</span></div>
         </div>
       </div>
 
-      <div class="proj-slot" data-bubble="Elix Whiskey — Brand Strategy">
+      <div class="proj-slot" data-bubble="Crafting a premium Indian whiskey identity.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
           <img id="proj-img-5" class="proj-img" alt="Elix Whiskey"/>
         </div></div></div>
         <div class="proj-meta">
-          <div class="proj-name">Elix Whiskey</div>
-          <div class="proj-tags"><span>Brand Strategy</span><span>Art Direction</span><span>Visual Identity</span></div>
+          <div class="proj-name">Elix</div>
+          <div class="proj-tags"><span>Brand Strategy</span><span>Art Direction</span><span>Packaging Design</span></div>
         </div>
       </div>
 
-      <div class="proj-slot" data-bubble="Dosage — Editorial Design">
+      <div class="proj-slot" data-bubble="Editorial layouts across print and screen.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-6" class="proj-img" alt="Dosage"/>
+          <img id="proj-img-6" class="proj-img" alt="ReportYak"/>
         </div></div></div>
         <div class="proj-meta">
-          <div class="proj-name">Dosage</div>
-          <div class="proj-tags"><span>Editorial Design</span><span>Information Layout</span><span>Typography Systems</span></div>
+          <div class="proj-name">ReportYak</div>
+          <div class="proj-tags"><span>Design Systems</span><span>Information Architecture</span><span>Data Visualization</span></div>
         </div>
       </div>
 
@@ -406,16 +704,16 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
           <img src="hello.gif" alt="Hello" onerror="this.style.display='none'"/>
         </div>
         <div class="about-name fu">I'm Adarsh <span class="about-ader">(ader)</span></div>
-        <p class="about-tag fu">Communication Designer,<br/>Architect, Frugal Traveller</p>
-        <p class="about-body fu">My design process starts from the ground up: applying architectural rigour to build robust UX systems where a strong underlying structure always precedes the surface. I am looking to bring this systemic thinking to a founding team, taking true design ownership at the bleeding edge of AI products and complex, data-heavy interfaces.</p>
+        <p class="about-tag fu">Communication Designer (IDC, IITB),<br/>Architect, Frugal Traveller</p>
+        <p class="about-body fu">Rooted in Kerala, I believe exceptional design and good taste should be accessible to all. Shaped by both architectural thinking and communication design, I bring structure, systems, and a strong visual sensibility to complex problems, always exploring new visual languages and turning ideas into work that people can feel as much as they can see.</p>
       </div>
       <div>
         <div class="about-edu fu">M.Des, Indian Institute of Technology Bombay<br/>B.Arch, College of Engineering Trivandrum.</div>
-        <a href="#" class="dl-btn fu">Download Resume</a>
+        <a href="https://drive.google.com/file/d/1SNNwExEXEbqINITPNkgn97mcTZHqvLE6/view" target="_blank" rel="noopener noreferrer" class="dl-btn fu">Download Resume</a>
       </div>
     </div>
     <div>
-      <div class="about-photo" id="about-photo">
+      <div class="about-photo" id="about-photo" data-bubble="Yes. I'm him.">
         <div class="about-photo-inner">
           <img id="portrait-img" alt="Adarsh S"/>
           <span class="photo-ph" id="portrait-fallback" style="display:none;">AS</span>
@@ -485,22 +783,15 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <!-- FOOTER -->
   <footer id="footer">
     <div class="footer-top">
-      <div>
+      <div class="footer-logo-col" style="align-self:flex-start;flex-shrink:0;">
         <img id="footer-logo-img" alt="ader"/>
         <div class="footer-sub">communication designer</div>
       </div>
-      <p class="footer-msg">If you've scrolled this far,<br/>take a stretch break,<br/>then tell me what caught your attention.</p>
-    </div>
-    <div class="footer-links-row">
+      <p class="footer-msg">You didn't scroll this far just to close the tab.<br/>Tell me what you're looking for ;)</p>
       <div class="footer-link-group">
-        <a href="#">LinkedIn</a>
-        <a href="#">Instagram</a>
-        <a href="#">Email</a>
-      </div>
-      <div class="footer-link-group">
-        <a href="#">LinkedIn</a>
-        <a href="#">Instagram</a>
-        <a href="#">Email</a>
+        <a href="https://www.linkedin.com/in/adarsh-s-a38714173/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/ader.___/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://mail.google.com/mail/?view=cm&to=ader.sandram@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
       </div>
     </div>
   </footer>
@@ -528,11 +819,31 @@ portrait.onerror = function() {
   document.getElementById('portrait-fallback').style.display = 'block';
 };
 
+/* ── Hero parallax + navigation transition ── */
+var gifHero = document.getElementById('gif-hero');
+var gifImg  = document.getElementById('gif-img');
+var navEl   = document.getElementById('nav');
+var worksEl = document.getElementById('works');
+
+var heroParallaxSpeed = 0.16;
+
+function updateHeroScroll() {
+  if (!gifHero || !gifImg) return;
+
+  /* No zoom: the GIF image moves upward at only 16% of scroll speed. */
+  var y = Math.max(0, window.scrollY * heroParallaxSpeed);
+  gifImg.style.transform = 'translate3d(0,' + (-y).toFixed(2) + 'px,0)';
+
+  /* Transparent nav until the Works section physically reaches the nav. */
+  if (worksEl && navEl) {
+    var worksTop = worksEl.getBoundingClientRect().top;
+    navEl.classList.toggle('nav-solid', worksTop <= navEl.offsetHeight);
+  }
+}
+
 /* ── Progress bar ── */
-var prog = document.getElementById('prog');
 function updateProgress() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
-  prog.style.width = h > 0 ? (window.scrollY / h * 100).toFixed(2) + '%' : '0%';
 }
 
 /* ── Fade-up on scroll ── */
@@ -550,8 +861,8 @@ function triggerFadeUps() {
   if (ap && ap.getBoundingClientRect().top < vh * 0.78) ap.classList.add('on');
 }
 
-window.addEventListener('scroll', function() { updateProgress(); triggerFadeUps(); }, { passive: true });
-window.addEventListener('load', function() { updateProgress(); triggerFadeUps(); });
+window.addEventListener('scroll', function() { updateHeroScroll(); updateProgress(); triggerFadeUps(); }, { passive: true });
+window.addEventListener('load', function() { updateHeroScroll(); updateProgress(); triggerFadeUps(); });
 
 /* ── Smooth anchor nav ── */
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
@@ -594,10 +905,6 @@ document.querySelectorAll('[data-bubble]').forEach(function(el) {
   el.addEventListener('mouseenter', function() { showBubble(el.dataset.bubble); });
   el.addEventListener('mouseleave', hideBubble);
 });
-document.querySelectorAll('.nav-links a').forEach(function(a) {
-  a.addEventListener('mouseenter', function() { showBubble(a.dataset.bubble || a.textContent.trim()); });
-  a.addEventListener('mouseleave', hideBubble);
-});
 
 /* ── Scroll position restore — must run before anything else ── */
 (function() {
@@ -612,12 +919,11 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 
 /* ── Project links + hover zoom crossfade ── */
 PROJECTS.forEach(function(p) {
-  var slot = document.querySelector('[data-bubble*="' + (
-    p.id===1?'E-Waste':p.id===2?'Nest.life':p.id===3?'Son of':
-    p.id===4?'Haystack':p.id===5?'Elix':'Dosage') + '"]');
-  if (!slot) return;
-  var imgArea = slot.querySelector('.proj-img-area');
-  var img1    = slot.querySelector('.proj-img');
+  var img1 = document.getElementById('proj-img-' + p.id);
+  if (!img1) return;
+  var slot    = img1.closest('.proj-slot');
+  var imgArea = img1.closest('.proj-img-area');
+  if (!slot || !imgArea) return;
 
   /* Second image */
   var img2 = document.createElement('img');
@@ -650,12 +956,89 @@ PROJECTS.forEach(function(p) {
   }
 });
 
-/* ── Nav always black ── */
-document.getElementById('nav').style.background = '#000';
+/* Nav starts transparent; updateHeroScroll() controls the backdrop. */
+document.getElementById('nav').classList.remove('nav-solid');
 
 /* scroll restore already handled above */
 
 })();
 </script>
+
+
+
+<!-- Loading screen controller -->
+<script>
+(function(){
+  var loader = document.getElementById('portfolio-loader');
+  if (!loader) return;
+
+  var fill = document.getElementById('pl-progress-fill');
+  var percent = document.getElementById('pl-percent');
+  var context = document.getElementById('pl-context');
+  var started = performance.now();
+  var current = 0;
+  var loaded = false;
+  var finished = false;
+
+  var title = (document.title || 'Portfolio')
+    .replace(/\s*[—-]\s*Ader\s*$/i,'')
+    .trim()
+    .toUpperCase();
+
+  if (context) context.textContent = title || 'PORTFOLIO';
+
+  function setProgress(value){
+    current = Math.max(0, Math.min(100, value));
+    if (fill) fill.style.width = current.toFixed(2) + '%';
+    if (percent) percent.textContent = String(Math.round(current)).padStart(2,'0') + '%';
+  }
+
+  function tick(){
+    if (finished) return;
+
+    if (!loaded){
+      /* Smoothly approaches 92% while real page resources load. */
+      var target = 92;
+      var next = current + (target - current) * 0.055;
+      setProgress(next);
+      requestAnimationFrame(tick);
+    }
+  }
+
+  function finish(){
+    if (finished || loaded) return;
+    loaded = true;
+
+    var minimumVisible = 700;
+    var wait = Math.max(0, minimumVisible - (performance.now() - started));
+
+    setTimeout(function(){
+      setProgress(100);
+
+      setTimeout(function(){
+        finished = true;
+        loader.classList.add('is-done');
+
+        setTimeout(function(){
+          if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 950);
+      }, 180);
+    }, wait);
+  }
+
+  setProgress(0);
+  requestAnimationFrame(tick);
+
+  if (document.readyState === 'complete'){
+    finish();
+  } else {
+    window.addEventListener('load', finish, {once:true});
+  }
+
+  /* Never trap the visitor if a resource is slow or unavailable. */
+  setTimeout(finish, 4500);
+})();
+</script>
+
 </body>
 </html>
