@@ -105,6 +105,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+/* Performance: keep media rendering cheap without changing media quality. */
+.cs-img-wrap,.cs-video-wrap{contain:layout paint;}
+.cs-video-wrap video{background:#000;}
+@media (prefers-reduced-motion: reduce){
+  .cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap{transition:none !important;transform:none !important;opacity:1 !important;}
+}
 </style>
 </head>
 <body>
@@ -117,13 +124,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 <div id="cs-images">
 
   <!-- PNGs 1–12 from Behance CDN -->
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" alt="Son of Sahyan — 1" loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/219031213343929.6747372f096ca.png" alt="Son of Sahyan — 2" loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4bfa23213343929.6744f63fbdac5.png" alt="Son of Sahyan — 3" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6b18e9213343929.67489e63306f2.png" alt="Son of Sahyan — 4" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6dd333213343929.6747372f0ad2f.png" alt="Son of Sahyan — 5" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/8c6f3a213343929.6747372f0b2fc.png" alt="Son of Sahyan — 6" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/7309d5213343929.6747372f0a723.png" alt="Son of Sahyan — 7" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" alt="Son of Sahyan — 1"/ loading="eager" decoding="async" fetchpriority="high"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/219031213343929.6747372f096ca.png" alt="Son of Sahyan — 2"/ loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4bfa23213343929.6744f63fbdac5.png" alt="Son of Sahyan — 3"/ loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6b18e9213343929.67489e63306f2.png" alt="Son of Sahyan — 4"/ loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6dd333213343929.6747372f0ad2f.png" alt="Son of Sahyan — 5"/ loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/8c6f3a213343929.6747372f0b2fc.png" alt="Son of Sahyan — 6"/ loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/7309d5213343929.6747372f0a723.png" alt="Son of Sahyan — 7"/ loading="lazy" decoding="async" fetchpriority="low"></div>
 
   <!-- Write-up -->
   <div class="cs-writeup">
@@ -140,24 +147,16 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- 4 MP4 videos -->
   <div class="cs-video-wrap">
-    <video controls muted autoplay playsinline preload="auto">
-      <source src="son of sahyan/1.mp4" type="video/mp4"/>
-    </video>
+    <video controls muted autoplay playsinline preload="metadata" data-case-video="1"><source src="son of sahyan/1.mp4" type="video/mp4"/></video>
   </div>
   <div class="cs-video-wrap">
-    <video controls muted autoplay playsinline preload="auto">
-      <source src="son of sahyan/2.mp4" type="video/mp4"/>
-    </video>
+    <video controls muted autoplay playsinline preload="metadata" data-case-video="1"><source src="son of sahyan/2.mp4" type="video/mp4"/></video>
   </div>
   <div class="cs-video-wrap">
-    <video controls muted autoplay playsinline preload="auto">
-      <source src="son of sahyan/3.mp4" type="video/mp4"/>
-    </video>
+    <video controls muted autoplay playsinline preload="metadata" data-case-video="1"><source src="son of sahyan/3.mp4" type="video/mp4"/></video>
   </div>
   <div class="cs-video-wrap">
-    <video controls muted autoplay playsinline preload="auto">
-      <source src="son of sahyan/4.mp4" type="video/mp4"/>
-    </video>
+    <video controls muted autoplay playsinline preload="metadata" data-case-video="1"><source src="son of sahyan/4.mp4" type="video/mp4"/></video>
   </div>
 
 
@@ -173,40 +172,56 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav   = document.getElementById('cs-nav');
-var imgWraps = document.querySelectorAll('.cs-img-wrap');
-var allFade  = document.querySelectorAll('.cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap');
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var fadeEls = document.querySelectorAll('.cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap');
+  var videos = document.querySelectorAll('[data-case-video]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
+  function reveal(el){ el.classList.add(el.classList.contains('cs-img-wrap') || el.classList.contains('cs-video-wrap') ? 'visible' : 'visible'); }
 
-  var current = 0;
-  imgWraps.forEach(function(w, i) {
-    if (w.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
-  });
-  
-  allFade.forEach(function(el) {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
-  });
-}
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var el = entry.target;
+      if (entry.isIntersecting){
+        el.classList.add('visible');
+        if (el.tagName === 'IMG') return;
+        var v = el.tagName === 'VIDEO' ? el : el.querySelector('video');
+        if (v){
+          var p = v.play();
+          if (p && p.catch) p.catch(function(){});
+        }
+        observer.unobserve(el);
+      } else if (el.tagName === 'VIDEO') {
+        el.pause();
+      }
+    });
+  }, {rootMargin:'900px 0px', threshold:0.01});
 
-/* Autoplay videos on scroll into view */
-var videoObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    var vid = entry.target;
-    if (entry.isIntersecting) { vid.play(); }
-    else { vid.pause(); }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.cs-video-wrap video').forEach(function(v) {
-  videoObserver.observe(v);
-});
+  fadeEls.forEach(function(el){ observer.observe(el); });
 
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+  // Pause videos when fully away from the viewport, without touching their source.
+  var videoObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var v = entry.target;
+      if (entry.isIntersecting){
+        var p = v.play();
+        if (p && p.catch) p.catch(function(){});
+      } else {
+        v.pause();
+      }
+    });
+  }, {rootMargin:'120px 0px', threshold:0.15});
+  videos.forEach(function(v){ videoObserver.observe(v); });
+
+  function navTick(){ nav.classList.toggle('scrolled', window.scrollY > 20); }
+  window.addEventListener('scroll', navTick, {passive:true});
+  navTick();
+
+  if (reduce) {
+    fadeEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+})();
 </script>
 </body>
 </html>

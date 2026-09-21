@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>All Projects — ader</title>
+<link rel="preload" as="image" href="logo.png" fetchpriority="high"/>
 
 <script>
 var FILES = { logo: "logo.png" };
@@ -195,6 +196,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 /* ── Fade-up ── */
 .fu{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease;}
 .fu.on{opacity:1;transform:translateY(0);}
+.proj-slot{contain:layout paint;}
+.proj-img-area{contain:paint;}
+
+@media (prefers-reduced-motion: reduce){
+  .fu{opacity:1 !important;transform:none !important;transition:none !important;}
+  .proj-img,.proj-img-2{transition:none !important;}
+}
 
 @media(max-width:600px){
   .proj-grid{grid-template-columns:1fr;padding:0 1.2rem 2rem;}
@@ -217,7 +225,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 <nav id="nav">
   <a href="index.html" style="display:flex;align-items:center;">
-    <img id="nav-logo-img" alt="ader"/>
+    <img id="nav-logo-img" src="logo.png" alt="ader" loading="eager" decoding="async" fetchpriority="high"/>
   </a>
   <ul class="nav-links">
     <li><a href="index.html#works">Work</a></li>
@@ -245,7 +253,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <footer id="footer">
     <div class="footer-top">
       <div class="footer-logo-col" style="align-self:flex-start;flex-shrink:0;">
-        <img id="footer-logo-img" alt="ader"/>
+        <img id="footer-logo-img" src="logo.png" alt="ader" loading="eager" decoding="async" fetchpriority="high"/>
         <div class="footer-sub">communication designer</div>
       </div>
       <p class="footer-msg">You didn't scroll this far just to close the tab.<br/>Tell me what you're looking for ;)</p>
@@ -263,9 +271,6 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 (function() {
 'use strict';
 
-document.getElementById('nav-logo-img').src    = FILES.logo;
-document.getElementById('footer-logo-img').src = FILES.logo;
-
 /* ── Build grid ── */
 var grid = document.getElementById('proj-grid');
 ALL_PROJECTS.forEach(function(p) {
@@ -281,7 +286,7 @@ ALL_PROJECTS.forEach(function(p) {
     '<div class="proj-cell">',
       '<div class="proj-img-wrap">',
         '<div class="proj-img-area">',
-          '<img class="proj-img" alt="' + p.name + '" loading="lazy"/>',
+          '<img class="proj-img" alt="' + p.name + '" loading="' + (p.id <= 2 ? 'eager' : 'lazy') + '" decoding="async" fetchpriority="' + (p.id <= 2 ? 'high' : 'low') + '"/>',
           '<div class="proj-overlay"></div>',
         '</div>',
       '</div>',
@@ -299,12 +304,16 @@ ALL_PROJECTS.forEach(function(p) {
   var imgArea = slot.querySelector('.proj-img-area');
   var img2 = document.createElement('img');
   img2.className = 'proj-img-2';
-  img2.src = p.file.replace(/(\.[^\.]+)$/, '2$1');
+  img2.dataset.src = p.file.replace(/(\.[^\.]+)$/, '2$1');
   img2.alt = p.name + ' — alternate';
+  img2.loading = 'lazy';
+  img2.decoding = 'async';
+  img2.fetchPriority = 'low';
   img2.onerror = function() { img2.style.display = 'none'; };
   imgArea.appendChild(img2);
 
   slot.addEventListener('mouseenter', function() {
+    if (!img2.src && img2.dataset.src) img2.src = img2.dataset.src;
     img1.style.transform = 'scale(1.08)';
     img2.style.transform = 'scale(1.08)';
     img2.style.opacity   = '1';
@@ -330,21 +339,30 @@ ALL_PROJECTS.forEach(function(p) {
   grid.appendChild(slot);
 });
 
-/* ── Progress ── */
-function updateProgress() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-}
-
-/* ── Fade-up ── */
-function triggerFadeUps() {
-  document.querySelectorAll('.fu').forEach(function(el) {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('on');
+/* ── Fade-up: IntersectionObserver avoids layout reads on every scroll frame. ── */
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('on');
+      revealObserver.unobserve(entry.target);
+    }
   });
-}
+}, { rootMargin: '400px 0px', threshold: 0.01 });
 
-window.addEventListener('scroll', function() { updateProgress(); triggerFadeUps(); }, { passive: true });
-window.addEventListener('load', function() { updateProgress(); triggerFadeUps(); });
-triggerFadeUps();
+document.querySelectorAll('.fu').forEach(function(el) { revealObserver.observe(el); });
+
+/* Pre-warm hover images shortly before their cards enter view. */
+var altObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var alt = entry.target.querySelector('.proj-img-2');
+      if (alt && !alt.src && alt.dataset.src) alt.src = alt.dataset.src;
+      altObserver.unobserve(entry.target);
+    }
+  });
+}, { rootMargin: '900px 0px', threshold: 0.01 });
+
+document.querySelectorAll('.proj-slot').forEach(function(el) { altObserver.observe(el); });
 
 /* ── Cursor bubble ── */
 var bubble = document.getElementById('cur-bubble');

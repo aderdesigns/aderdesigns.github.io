@@ -101,6 +101,63 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+/* ── Performance + mobile refinement ── */
+.cs-img-wrap,
+.cs-writeup,
+.cs-video-wrap{
+  contain:layout paint;
+}
+@media (max-width:767px){
+  #cs-nav{
+    height:50px;
+    padding:0 16px;
+  }
+  #cs-nav-logo{height:22px;}
+  .cs-nav-title{
+    max-width:48vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:.56rem;
+    letter-spacing:.14em;
+  }
+  #cs-images{padding-top:50px;}
+  .cs-img-wrap{
+    transform:translateY(18px);
+    transition-duration:.55s;
+  }
+  .cs-writeup{
+    margin:3rem auto;
+    padding:0 18px;
+  }
+  .cs-writeup p{
+    font-size:.84rem;
+    line-height:1.7;
+  }
+  .cs-end{
+    padding:4rem 18px;
+    gap:1rem;
+  }
+  .cs-end-title{
+    font-size:clamp(2rem,12vw,3.2rem);
+    text-align:center;
+  }
+  .cs-end-back{
+    font-size:.58rem;
+    padding:.72rem 1.4rem;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .cs-img-wrap,
+  .cs-writeup,
+  .cs-video-wrap{
+    transition:none;
+    transform:none;
+  }
+  .cs-end-back{transition:none;}
+}
+
 </style>
 </head>
 <body>
@@ -113,12 +170,12 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 <div id="cs-images">
 
   <!-- PNGs 1–7 in order -->
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/1.png" alt="E-Waste Data Viz — 1" loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/2.png" alt="E-Waste Data Viz — 2" loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/3.png" alt="E-Waste Data Viz — 3" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/4.png" alt="E-Waste Data Viz — 4" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/5.png" alt="E-Waste Data Viz — 5" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="E-Waste Data Viz/7.png" alt="E-Waste Data Viz — 7" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/1.png" alt="E-Waste Data Viz — 1" loading="eager" fetchpriority="high" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/2.png" alt="E-Waste Data Viz — 2" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/3.png" alt="E-Waste Data Viz — 3" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/4.png" alt="E-Waste Data Viz — 4" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/5.png" alt="E-Waste Data Viz — 5" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="E-Waste Data Viz/7.png" alt="E-Waste Data Viz — 7" loading="lazy" decoding="async"/></div>
 
   <!-- Write-up block -->
   <div class="cs-writeup">
@@ -129,22 +186,22 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- MP4 videos — play only on click -->
   <div class="cs-video-wrap">
-    <video controls preload="none" poster="">
+    <video controls preload="none" playsinline>
       <source src="E-Waste Data Viz/1.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none" poster="">
+    <video controls preload="none" playsinline>
       <source src="E-Waste Data Viz/2.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none" poster="">
+    <video controls preload="none" playsinline>
       <source src="E-Waste Data Viz/3.mp4" type="video/mp4"/>
     </video>
   </div>
   <div class="cs-video-wrap">
-    <video controls preload="none" poster="">
+    <video controls preload="none" playsinline>
       <source src="E-Waste Data Viz/4.mp4" type="video/mp4"/>
     </video>
   </div>
@@ -161,28 +218,53 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav   = document.getElementById('cs-nav');
-var allItems = document.querySelectorAll('.cs-img-wrap, .cs-writeup, .cs-video-wrap');
-var total = 11; /* 6 PNGs + writeup + 4 videos */
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var items = document.querySelectorAll('.cs-img-wrap, .cs-writeup, .cs-video-wrap');
+  var videos = document.querySelectorAll('.cs-video-wrap video');
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
+  function updateNav(){
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
 
-  var current = 0;
-  document.querySelectorAll('.cs-img-wrap').forEach(function(w, i) {
-    if (w.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
-  });
-  
-  allItems.forEach(function(el) {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('visible');
-  });
-}
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin:'0px 0px 220px 0px',
+      threshold:0.08
+    });
 
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+    items.forEach(function(item){ observer.observe(item); });
+  } else {
+    items.forEach(function(item){ item.classList.add('visible'); });
+  }
+
+  /* Keep videos completely idle until the visitor gets close to them. */
+  if ('IntersectionObserver' in window) {
+    var videoObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var video = entry.target;
+        if (entry.isIntersecting) {
+          /* Do not autoplay; this only allows the browser to prepare the controls. */
+          video.preload = 'metadata';
+        } else {
+          video.pause();
+        }
+      });
+    }, {rootMargin:'300px 0px', threshold:0.01});
+
+    videos.forEach(function(video){ videoObserver.observe(video); });
+  }
+
+  window.addEventListener('scroll', updateNav, {passive:true});
+  updateNav();
+})();
 </script>
 </body>
 </html>

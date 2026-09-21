@@ -13,9 +13,10 @@
 ════════════════════════════════════════════════════════ -->
 <script>
 var FILES = {
-  gif:      "hero.gif",
+  hero:     "hero.mp4",
   logo:     "logo.png",
   portrait: "aboutme.jpg",
+  hello:    "hello.mp4",
 };
 var PROJECTS = [
   { id:1, file:"E-Waste Data Viz.jpg",     link:"e-waste-data-viz.html" },
@@ -218,7 +219,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 /* ── Progress bar ── */
 
-/* ── GIF hero ── */
+/* ── Hero video ── */
 #gif-hero{
   position:fixed;top:0;
   width:100vw;
@@ -226,12 +227,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   max-height:100vh;
   z-index:10;overflow:hidden;background:#0a0a0a;
 }
-#gif-img{
+#hero-video{
   width:100%;height:100%;object-fit:cover;object-position:center center;
   display:block;
   transform:translate3d(0,0,0);
   will-change:transform;
   transform-origin:center center;
+  background:#0a0a0a;
 }
 
 /* Fixed hero + slow image-only parallax. No scaling. */
@@ -343,7 +345,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 .about-gif{margin-bottom:1.2rem;}
-.about-gif img{height:140px;width:auto;display:block;}
+.about-gif video{height:140px;width:auto;display:block;max-width:100%;}
 .about-name{
   font-family:'PP Mori',sans-serif;
   font-size:66.6px;font-weight:600;
@@ -467,7 +469,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     height:calc(100vw * (1087/1728));
     max-height:72svh;
   }
-  #gif-img{
+  #hero-video{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -523,7 +525,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     grid-template-columns:1fr;
     gap:2.5rem;
   }
-  .about-gif img{height:95px;max-width:100%;object-fit:contain;}
+  .about-gif video{height:95px;max-width:100%;width:auto;object-fit:contain;}
   .about-name{
     font-size:clamp(42px,13vw,58px);
     line-height:.92;
@@ -610,9 +612,17 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   </ul>
 </nav>
 
-<!-- GIF HERO -->
+<!-- HERO VIDEO -->
 <div id="gif-hero">
-  <img id="gif-img" alt="ader — welcome to my portfolio"/>
+  <video id="hero-video"
+         autoplay
+         muted
+         loop
+         playsinline
+         preload="auto"
+         aria-label="ader — welcome to my portfolio">
+    <source id="hero-video-source" type="video/mp4"/>
+  </video>
 </div>
 
 <!-- PORTFOLIO -->
@@ -631,7 +641,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Making e-waste infrastructure legible.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-1" class="proj-img" alt="E-Waste Data Viz"/>
+          <img id="proj-img-1" class="proj-img" alt="E-Waste Data Viz" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Mapping E-Waste</div>
@@ -641,7 +651,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Nestlé's AI-powered health companion.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-2" class="proj-img" alt="Nest.life"/>
+          <img id="proj-img-2" class="proj-img" alt="Nest.life" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Nest.life</div>
@@ -651,7 +661,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Interactive parallax graphic novel.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-3" class="proj-img" alt="Son of Sahyan"/>
+          <img id="proj-img-3" class="proj-img" alt="Son of Sahyan" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Son of Sahyan</div>
@@ -661,7 +671,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Translating complex genomics across all mediums.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-4" class="proj-img" alt="Haystack Analytics"/>
+          <img id="proj-img-4" class="proj-img" alt="Haystack Analytics" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name wrap">Haystack<br/>Analytics</div>
@@ -671,7 +681,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Crafting a premium Indian whiskey identity.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-5" class="proj-img" alt="Elix Whiskey"/>
+          <img id="proj-img-5" class="proj-img" alt="Elix Whiskey" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">Elix</div>
@@ -681,7 +691,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
       <div class="proj-slot" data-bubble="Editorial layouts across print and screen.">
         <div class="proj-cell"><div class="proj-img-wrap"><div class="proj-img-area">
-          <img id="proj-img-6" class="proj-img" alt="ReportYak"/>
+          <img id="proj-img-6" class="proj-img" alt="ReportYak" loading="lazy" decoding="async"/>
         </div></div></div>
         <div class="proj-meta">
           <div class="proj-name">ReportYak</div>
@@ -701,7 +711,15 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     <div style="display:flex;flex-direction:column;justify-content:space-between;">
       <div>
         <div class="about-gif fu">
-          <img src="hello.gif" alt="Hello" onerror="this.style.display='none'"/>
+          <video id="hello-video"
+                 autoplay
+                 muted
+                 loop
+                 playsinline
+                 preload="metadata"
+                 aria-label="Hello">
+            <source id="hello-video-source" type="video/mp4"/>
+          </video>
         </div>
         <div class="about-name fu">I'm Adarsh <span class="about-ader">(ader)</span></div>
         <p class="about-tag fu">Communication Designer (IDC, IITB),<br/>Architect, Frugal Traveller</p>
@@ -802,17 +820,31 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 (() => {
 'use strict';
 
-/* ── Apply FILES config to all image elements ── */
-document.getElementById('gif-img').src         = FILES.gif;
+/* ── Apply assets efficiently ── */
+var heroVideo = document.getElementById('hero-video');
+var heroSource = document.getElementById('hero-video-source');
+var helloVideo = document.getElementById('hello-video');
+var helloSource = document.getElementById('hello-video-source');
+
+if (heroSource) heroSource.src = FILES.hero;
+if (heroVideo) {
+  heroVideo.load();
+  heroVideo.play().catch(function(){});
+}
+
+if (helloSource) helloSource.src = FILES.hello;
+if (helloVideo) {
+  helloVideo.load();
+  helloVideo.play().catch(function(){});
+}
+
 document.getElementById('nav-logo-img').src    = FILES.logo;
 document.getElementById('footer-logo-img').src = FILES.logo;
-PROJECTS.forEach(function(p) {
-  var el = document.getElementById('proj-img-' + p.id);
-  if (el) el.src = p.file;
-});
 
 /* Portrait with fallback to initials */
 var portrait = document.getElementById('portrait-img');
+portrait.loading = 'lazy';
+portrait.decoding = 'async';
 portrait.src = FILES.portrait;
 portrait.onerror = function() {
   this.style.display = 'none';
@@ -821,18 +853,18 @@ portrait.onerror = function() {
 
 /* ── Hero parallax + navigation transition ── */
 var gifHero = document.getElementById('gif-hero');
-var gifImg  = document.getElementById('gif-img');
+var heroVideoEl  = document.getElementById('hero-video');
 var navEl   = document.getElementById('nav');
 var worksEl = document.getElementById('works');
 
 var heroParallaxSpeed = 0.16;
 
 function updateHeroScroll() {
-  if (!gifHero || !gifImg) return;
+  if (!gifHero || !heroVideoEl) return;
 
-  /* No zoom: the GIF image moves upward at only 16% of scroll speed. */
+  /* No zoom: the hero video content drifts upward at only 16% of scroll speed. */
   var y = Math.max(0, window.scrollY * heroParallaxSpeed);
-  gifImg.style.transform = 'translate3d(0,' + (-y).toFixed(2) + 'px,0)';
+  heroVideoEl.style.transform = 'translate3d(0,' + (-y).toFixed(2) + 'px,0)';
 
   /* Transparent nav until the Works section physically reaches the nav. */
   if (worksEl && navEl) {
@@ -925,17 +957,31 @@ PROJECTS.forEach(function(p) {
   var imgArea = img1.closest('.proj-img-area');
   if (!slot || !imgArea) return;
 
-  /* Second image */
+  /* Primary project image: lazy-load + async decode. */
+  img1.loading = 'lazy';
+  img1.decoding = 'async';
+  img1.src = p.file;
+
+  /* Alternate image is not requested until a real desktop hover. */
   var img2 = document.createElement('img');
   img2.className = 'proj-img-2';
-  img2.src = p.file.replace(/(\.[^\.]+)$/, '2$1');
   img2.alt = img1.alt + ' — alternate';
+  img2.loading = 'lazy';
+  img2.decoding = 'async';
   img2.onerror = function() { img2.style.display='none'; };
   imgArea.appendChild(img2);
+
+  var altRequested = false;
+  function requestAlt() {
+    if (altRequested || !window.matchMedia('(hover:hover)').matches) return;
+    altRequested = true;
+    img2.src = p.file.replace(/(\.[^\.]+)$/, '2$1');
+  }
 
   img1.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
 
   slot.addEventListener('mouseenter', function() {
+    requestAlt();
     img1.style.transform = 'scale(1.08)';
     img2.style.transform = 'scale(1.08)';
     img2.style.opacity   = '1';
@@ -976,9 +1022,7 @@ document.getElementById('nav').classList.remove('nav-solid');
   var percent = document.getElementById('pl-percent');
   var context = document.getElementById('pl-context');
   var started = performance.now();
-  var current = 0;
-  var loaded = false;
-  var finished = false;
+  var done = false;
 
   var title = (document.title || 'Portfolio')
     .replace(/\s*[—-]\s*Ader\s*$/i,'')
@@ -988,55 +1032,49 @@ document.getElementById('nav').classList.remove('nav-solid');
   if (context) context.textContent = title || 'PORTFOLIO';
 
   function setProgress(value){
-    current = Math.max(0, Math.min(100, value));
-    if (fill) fill.style.width = current.toFixed(2) + '%';
-    if (percent) percent.textContent = String(Math.round(current)).padStart(2,'0') + '%';
+    value = Math.max(0, Math.min(100, value));
+    if (fill) fill.style.width = value.toFixed(1) + '%';
+    if (percent) percent.textContent = String(Math.round(value)).padStart(2,'0') + '%';
   }
 
-  function tick(){
-    if (finished) return;
+  function closeLoader(){
+    if (done) return;
+    done = true;
+    setProgress(100);
 
-    if (!loaded){
-      /* Smoothly approaches 92% while real page resources load. */
-      var target = 92;
-      var next = current + (target - current) * 0.055;
-      setProgress(next);
-      requestAnimationFrame(tick);
+    setTimeout(function(){
+      loader.classList.add('is-done');
+      setTimeout(function(){
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 900);
+    }, 160);
+  }
+
+  /* Start immediately: no waiting for every project image/video. */
+  setProgress(18);
+
+  var heroReady = false;
+  function markHeroReady(){
+    if (heroReady) return;
+    heroReady = true;
+    setProgress(100);
+    var elapsed = performance.now() - started;
+    var minimum = 420;
+    setTimeout(closeLoader, Math.max(0, minimum - elapsed));
+  }
+
+  var hero = document.getElementById('hero-video');
+  if (hero) {
+    if (hero.readyState >= 2) {
+      markHeroReady();
+    } else {
+      hero.addEventListener('loadeddata', markHeroReady, {once:true});
+      hero.addEventListener('canplay', markHeroReady, {once:true});
     }
   }
 
-  function finish(){
-    if (finished || loaded) return;
-    loaded = true;
-
-    var minimumVisible = 700;
-    var wait = Math.max(0, minimumVisible - (performance.now() - started));
-
-    setTimeout(function(){
-      setProgress(100);
-
-      setTimeout(function(){
-        finished = true;
-        loader.classList.add('is-done');
-
-        setTimeout(function(){
-          if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-        }, 950);
-      }, 180);
-    }, wait);
-  }
-
-  setProgress(0);
-  requestAnimationFrame(tick);
-
-  if (document.readyState === 'complete'){
-    finish();
-  } else {
-    window.addEventListener('load', finish, {once:true});
-  }
-
-  /* Never trap the visitor if a resource is slow or unavailable. */
-  setTimeout(finish, 4500);
+  /* Fast fallback: never let one video block the whole site. */
+  setTimeout(markHeroReady, 1800);
 })();
 </script>
 

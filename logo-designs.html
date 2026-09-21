@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<link rel="preload" href="logo set/1.jpg" as="image" fetchpriority="high"/>
 <title>Logo Designs — Ader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/></noscript>
 <style>
 @font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
@@ -27,13 +30,16 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   position:absolute;left:50%;transform:translateX(-50%);
 }
 #cs-nav.scrolled .cs-nav-title{opacity:.5;}
-#cs-images{padding-top:52px;}
+#nav-sentinel{position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;}\n#cs-images{padding-top:52px;}
 .cs-img-wrap{
+  contain:layout paint;
+
   width:100%;display:block;overflow:hidden;
   opacity:0;transform:translateY(30px);
   transition:opacity .7s ease,transform .7s ease;
 }
 .cs-img-wrap.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion:reduce){.cs-img-wrap{transition:none;transform:none;opacity:1;}}
 .cs-img-wrap img{width:100%;height:auto;display:block;}
 .cs-end{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -57,28 +63,29 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">Logo Designs</span>
 </nav>
+<div id="nav-sentinel" aria-hidden="true"></div>
 
 <div id="cs-images">
-  <div class="cs-img-wrap"><img src="logo set/1.jpg"  alt="Logo Designs — 1"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="logo set/2.jpg"  alt="Logo Designs — 2"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="logo set/3.jpg"  alt="Logo Designs — 3"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/4.jpg"  alt="Logo Designs — 4"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/5.jpg"  alt="Logo Designs — 5"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/6.jpg"  alt="Logo Designs — 6"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/7.jpg"  alt="Logo Designs — 7"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/8.jpg"  alt="Logo Designs — 8"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/9.jpg"  alt="Logo Designs — 9"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/10.jpg" alt="Logo Designs — 10" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/11.jpg" alt="Logo Designs — 11" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/12.jpg" alt="Logo Designs — 12" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/13.jpg" alt="Logo Designs — 13" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/14.jpg" alt="Logo Designs — 14" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/15.jpg" alt="Logo Designs — 15" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/16.jpg" alt="Logo Designs — 16" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/17.jpg" alt="Logo Designs — 17" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/18.jpg" alt="Logo Designs — 18" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/19.jpg" alt="Logo Designs — 19" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="logo set/20.jpg" alt="Logo Designs — 20" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="logo set/1.jpg"  alt="Logo Designs — 1"  loading="lazy" decoding="async" fetchpriority="low" decoding="async" fetchpriority="high"/></div>
+  <div class="cs-img-wrap"><img src="logo set/2.jpg"  alt="Logo Designs — 2"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/3.jpg"  alt="Logo Designs — 3"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/4.jpg"  alt="Logo Designs — 4"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/5.jpg"  alt="Logo Designs — 5"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/6.jpg"  alt="Logo Designs — 6"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/7.jpg"  alt="Logo Designs — 7"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/8.jpg"  alt="Logo Designs — 8"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/9.jpg"  alt="Logo Designs — 9"  loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/10.jpg" alt="Logo Designs — 10" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/11.jpg" alt="Logo Designs — 11" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/12.jpg" alt="Logo Designs — 12" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/13.jpg" alt="Logo Designs — 13" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/14.jpg" alt="Logo Designs — 14" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/15.jpg" alt="Logo Designs — 15" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/16.jpg" alt="Logo Designs — 16" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/17.jpg" alt="Logo Designs — 17" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/18.jpg" alt="Logo Designs — 18" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/19.jpg" alt="Logo Designs — 19" loading="lazy" decoding="async" fetchpriority="low"/></div>
+  <div class="cs-img-wrap"><img src="logo set/20.jpg" alt="Logo Designs — 20" loading="lazy" decoding="async" fetchpriority="low"/></div>
 </div>
 
 <div class="cs-end">
@@ -91,20 +98,27 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav   = document.getElementById('cs-nav');
-var wraps = document.querySelectorAll('.cs-img-wrap');
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var sentinel = document.getElementById('nav-sentinel');
+  var wraps = document.querySelectorAll('.cs-img-wrap');
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  wraps.forEach(function(w) {
-    if (w.getBoundingClientRect().top < window.innerHeight * 0.92) w.classList.add('visible');
-  });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+  var navObserver = new IntersectionObserver(function(entries){
+    nav.classList.toggle('scrolled', !entries[0].isIntersecting);
+  }, {threshold:0, rootMargin:'-20px 0px 0px 0px'});
+  navObserver.observe(sentinel);
+
+  var revealObserver = new IntersectionObserver(function(entries, observer){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.01, rootMargin:'0px 0px 18% 0px'});
+
+  wraps.forEach(function(w){ revealObserver.observe(w); });
+})();
 </script>
 </body>
 </html>

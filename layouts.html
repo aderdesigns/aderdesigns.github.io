@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#0a0a0a"/>
 <title>Layouts — Ader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/></noscript>
 <style>
 @font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
@@ -28,13 +30,16 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 }
 #cs-nav.scrolled .cs-nav-title{opacity:.5;}
 
-#cs-images{padding-top:52px;}
+#nav-sentinel{position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;opacity:0;}\n#cs-images{padding-top:52px;}
 .cs-img-wrap{
+  contain:layout paint;
+
   width:100%;display:block;overflow:hidden;
   opacity:0;transform:translateY(30px);
   transition:opacity .7s ease,transform .7s ease;
 }
 .cs-img-wrap.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion:reduce){.cs-img-wrap{transition:none;transform:none;opacity:1;}}
 .cs-img-wrap img,.cs-img-wrap video{width:100%;height:auto;display:block;}
 .cs-end{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -50,6 +55,15 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+@media (max-width:767px){
+  #cs-nav{height:50px;padding:0 16px;}
+  #cs-nav-logo{height:22px;}
+  .cs-nav-title{font-size:9px;letter-spacing:.13em;max-width:48vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #cs-images{padding-top:50px;}
+  .cs-end{padding:4rem 18px;}
+  .cs-end-title{font-size:clamp(1.8rem,9vw,3rem);text-align:center;line-height:1.05;}
+}
 </style>
 </head>
 <body>
@@ -58,6 +72,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">Layouts</span>
 </nav>
+<div id="nav-sentinel" aria-hidden="true"></div>
 
 
 <div id="cs-images">
@@ -68,9 +83,9 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     </video>
   </div>
   <!-- 2.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/2.1.png" alt="Layouts — 2.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/2.1.png" alt="Layouts — 2.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 3.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/3.1.png" alt="Layouts — 3.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/3.1.png" alt="Layouts — 3.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 4.1 MP4 -->
   <div class="cs-img-wrap">
     <video autoplay loop muted playsinline>
@@ -78,15 +93,15 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     </video>
   </div>
   <!-- 5.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/5.1.png" alt="Layouts — 5.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/5.1.png" alt="Layouts — 5.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 6.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/6.1.png" alt="Layouts — 6.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/6.1.png" alt="Layouts — 6.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 8.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/8.1.png" alt="Layouts — 8.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/8.1.png" alt="Layouts — 8.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 9.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/9.1.png" alt="Layouts — 9.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/9.1.png" alt="Layouts — 9.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 10.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/10.1.png" alt="Layouts — 10.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/10.1.png" alt="Layouts — 10.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 11.1 MP4 -->
   <div class="cs-img-wrap">
     <video autoplay loop muted playsinline>
@@ -94,7 +109,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     </video>
   </div>
   <!-- 13.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/13.1.png" alt="Layouts — 13.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/13.1.png" alt="Layouts — 13.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 14.1 MP4 -->
   <div class="cs-img-wrap">
     <video autoplay loop muted playsinline>
@@ -102,9 +117,9 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     </video>
   </div>
   <!-- 15.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/15.1.png" alt="Layouts — 15.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/15.1.png" alt="Layouts — 15.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 16.1 PNG -->
-  <div class="cs-img-wrap"><img src="Layout designs/16.1.png" alt="Layouts — 16.1" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="Layout designs/16.1.png" alt="Layouts — 16.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
 </div>
 
 <div class="cs-end">
@@ -117,32 +132,66 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav   = document.getElementById('cs-nav');
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var sentinel = document.getElementById('nav-sentinel');
+  var wraps = document.querySelectorAll('.cs-img-wrap');
+  var lazyVideos = document.querySelectorAll('video.lazy-video');
 
-var wraps = document.querySelectorAll('.cs-img-wrap');
+  /* No scroll handler: the nav state is driven by one tiny sentinel. */
+  var navObserver = new IntersectionObserver(function(entries){
+    nav.classList.toggle('scrolled', !entries[0].isIntersecting);
+  }, {threshold:0, rootMargin:'-20px 0px 0px 0px'});
+  navObserver.observe(sentinel);
 
-/* Intersection observer to trigger video play only when visible */
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    var vid = entry.target.querySelector('video');
-    if (vid) {
-      if (entry.isIntersecting) vid.play();
-      else vid.pause();
-    }
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
+  /* Reveal only when genuinely close to the viewport. */
+  var revealObserver = new IntersectionObserver(function(entries, observer){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.01, rootMargin:'0px 0px 18% 0px'});
+  wraps.forEach(function(w){ revealObserver.observe(w); });
 
-wraps.forEach(function(w) { observer.observe(w); });
+  /* Start downloading off-screen videos only when they are getting close. */
+  var videoLoadObserver = new IntersectionObserver(function(entries, observer){
+    entries.forEach(function(entry){
+      if (!entry.isIntersecting) return;
+      var vid = entry.target;
+      if (!vid.src && vid.dataset.src) {
+        vid.src = vid.dataset.src;
+        vid.load();
+        vid.addEventListener('canplay', function(){
+          if (vid._inViewport) {
+            var p = vid.play();
+            if (p && p.catch) p.catch(function(){});
+          }
+        }, {once:true});
+      }
+      observer.unobserve(vid);
+    });
+  }, {threshold:0, rootMargin:'1000px 0px 600px 0px'});
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+  lazyVideos.forEach(function(v){ videoLoadObserver.observe(v); });
+
+  /* Only the video actually in the viewport is allowed to play. */
+  var videoPlayObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var vid = entry.target;
+      vid._inViewport = entry.isIntersecting;
+      if (entry.isIntersecting) {
+        var p = vid.play();
+        if (p && p.catch) p.catch(function(){});
+      } else {
+        vid.pause();
+      }
+    });
+  }, {threshold:0.15});
+
+  document.querySelectorAll('video').forEach(function(v){ videoPlayObserver.observe(v); });
+})();
 </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <title>Reactions — Ader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" as="style"/><link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/></noscript>
 <style>
 @font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
@@ -49,32 +49,45 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+/* Performance: preserve pixels, reduce main-thread paint/layout work. */
+.cs-img-wrap{
+  contain:layout paint;
+  content-visibility:auto;
+  contain-intrinsic-size:100vw 720px;
+}
+.cs-img-wrap img{
+  image-rendering:auto;
+}
+@media (prefers-reduced-motion: reduce){
+  .cs-img-wrap{transition:none !important;transform:none !important;opacity:1 !important;}
+}
 </style>
 </head>
 <body>
 
 <nav id="cs-nav">
-  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
+  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'" loading="eager" decoding="async" fetchpriority="high">
   <span class="cs-nav-title">Reactions</span>
 </nav>
 
 <div id="cs-images">
-  <div class="cs-img-wrap"><img src="Reactions/1.png"  alt="Reactions — 1"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/2.png"  alt="Reactions — 2"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/3.png"  alt="Reactions — 3"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/4.png"  alt="Reactions — 4"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/5.png"  alt="Reactions — 5"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/6.png"  alt="Reactions — 6"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/7.png"  alt="Reactions — 7"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/8.png"  alt="Reactions — 8"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/9.png"  alt="Reactions — 9"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/10.png" alt="Reactions — 10" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/11.png" alt="Reactions — 11" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/12.png" alt="Reactions — 12" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/13.png" alt="Reactions — 13" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/14.png" alt="Reactions — 14" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/15.png" alt="Reactions — 15" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="Reactions/16.png" alt="Reactions — 16" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/1.png"  alt="Reactions — 1"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/2.png"  alt="Reactions — 2"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/3.png"  alt="Reactions — 3"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/4.png"  alt="Reactions — 4"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/5.png"  alt="Reactions — 5"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/6.png"  alt="Reactions — 6"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/7.png"  alt="Reactions — 7"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/8.png"  alt="Reactions — 8"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/9.png"  alt="Reactions — 9"  loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/10.png" alt="Reactions — 10" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/11.png" alt="Reactions — 11" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/12.png" alt="Reactions — 12" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/13.png" alt="Reactions — 13" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/14.png" alt="Reactions — 14" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/15.png" alt="Reactions — 15" loading="lazy" decoding="async" fetchpriority="low"></div>
+  <div class="cs-img-wrap"><img data-src="Reactions/16.png" alt="Reactions — 16" loading="lazy" decoding="async" fetchpriority="low"></div>
 </div>
 
 <div class="cs-end">
@@ -86,20 +99,56 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   </a>
 </div>
 
+
 <script>
-var nav   = document.getElementById('cs-nav');
-var wraps = document.querySelectorAll('.cs-img-wrap');
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  wraps.forEach(function(w) {
-    if (w.getBoundingClientRect().top < window.innerHeight * 0.92) w.classList.add('visible');
-  });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var wraps = document.querySelectorAll('.cs-img-wrap');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Load the actual first image immediately; everything else stays deferred. */
+  var first = wraps[0] && wraps[0].querySelector('img[data-src]');
+  if (first) {
+    first.src = first.dataset.src;
+    first.removeAttribute('data-src');
+    first.loading = 'eager';
+    first.fetchPriority = 'high';
+  }
+
+  function loadImage(img){
+    if (!img || !img.dataset.src) return;
+    img.src = img.dataset.src;
+    img.removeAttribute('data-src');
+  }
+
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting || entry.intersectionRatio > 0){
+        entry.target.classList.add('visible');
+        var img = entry.target.querySelector('img[data-src]');
+        if (img) loadImage(img);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {rootMargin:'1200px 0px', threshold:0.01});
+
+  wraps.forEach(function(w){ revealObserver.observe(w); });
+
+  function navTick(){
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
+  window.addEventListener('scroll', navTick, {passive:true});
+  navTick();
+
+  if (reduce) {
+    wraps.forEach(function(w){
+      w.classList.add('visible');
+      var img = w.querySelector('img[data-src]');
+      if (img) loadImage(img);
+    });
+  }
+})();
 </script>
+
 </body>
 </html>

@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
+<link rel="preload" as="image" href="Illustrations/PNG 2.png" fetchpriority="high"/>
+
 <style>
 @font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
@@ -43,7 +45,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 .fi.on{opacity:1;transform:translateY(0);}
 
 /* ── blocks ── */
-.block{margin-bottom:6rem;}
+.block{margin-bottom:6rem;contain:layout paint;}
 
 .b1{display:grid;grid-template-columns:55fr 45fr;align-items:end;}
 .b1 .img-main{width:100%;height:auto;display:block;}
@@ -144,6 +146,16 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   }
 }
 
+
+.block .img-main{
+  image-rendering:auto;
+  backface-visibility:hidden;
+}
+@media (prefers-reduced-motion:reduce){
+  html,body{scroll-behavior:auto;}
+  .fi{opacity:1;transform:none;transition:none;}
+}
+
 </style>
 </head>
 <body>
@@ -157,7 +169,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- BLOCK 1: PNG 2 large left, text right -->
   <div class="block b1 fi">
-    <img class="img-main" src="Illustrations/PNG 2.png" alt="Illustration 2"
+    <img class="img-main" loading="eager" fetchpriority="high" decoding="async" src="Illustrations/PNG 2.png" alt="Illustration 2"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
     <div class="text-col">
       <p class="body-copy">We do not bow to the gods we find; we sculpt the gods we need. This illustration tells a story of reverse creation, inverting the cosmic hierarchy to reveal humanity not as subjects of divine will, but as its authors. This piece explores how we mold the divine to serve our own complex human narratives, acting as the puppet masters of our own faith.</p>
@@ -169,13 +181,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     <div class="text-col">
       <p class="body-copy">A visual narrative of the Kerala monsoons. This illustration explores the intersection of memory and environment. Through this illustration, the goal was to capture the immersive nostalgia of childhood rains — not just what it looked like, but the weightless, quiet feeling of being suspended in those fleeting, flooded moments while life plays on above.</p>
     </div>
-    <img class="img-main" src="Illustrations/PNG 8.png" alt="Kerala monsoons"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 8.png" alt="Kerala monsoons"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
   </div>
 
   <!-- BLOCK 3: PNG 4 large left, text right -->
   <div class="block b3 fi">
-    <img class="img-main" src="Illustrations/PNG 4.png" alt="Childhood folklore"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 4.png" alt="Childhood folklore"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
     <div class="text-col">
       <p class="body-copy">A visual manifestation of childhood folklore. This illustration bridges the gap between memory and myth, inspired by a playground rumoured to be built over a forgotten cemetery. This piece captures the terrifying, electrifying thrill of a midnight encounter — a glowing-eyed girl and her rabbit — exploring how childhood imagination transforms neighbourhood ghost stories into lasting visual legends.</p>
@@ -184,7 +196,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- BLOCK 4: PNG 5 left, text right -->
   <div class="block b4 fi">
-    <img class="img-main" src="Illustrations/PNG 5.png" alt="Bike ride memory"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 5.png" alt="Bike ride memory"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='50vh';this.removeAttribute('src')"/>
     <div class="text-col">
       <p class="body-copy">Illustrating the memories of others. This piece explores the role of the designer as a storyteller for the collective human experience. Capturing the chaotic energy of a friend's childhood bike ride, this piece uses dynamic composition and distorted scale to make the viewer feel the thrill of a borrowed memory.</p>
@@ -197,13 +209,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
       <p class="body-copy">The true challenge of this competition piece was the sheer density of the brief. The task required translating a highly specific, stage-play-like text description into a single static frame. Every element — from the clustered soldier figures and the bear-head rug to the specific entry points of three distinct characters — had to be present and accurate. To solve this visual puzzle, I utilised an extreme high-angle perspective, allowing me to map out the complex spatial relationships and fit every required constraint into the composition without losing the ominous, sunlit atmosphere.<br/><br/>
       <em>Scene illustration:</em> The scene is the living room of the house on Soldier Island. It is a bright, sunlit evening. Nearly the whole back of the room is a window looking directly out to sea. French windows open onto a balcony with chairs. It should give the impression of the deck of a liner almost overhanging the sea.</p>
     </div>
-    <img class="img-main" src="Illustrations/PNG 6.png" alt="Soldier Island scene"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 6.png" alt="Soldier Island scene"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
   </div>
 
   <!-- BLOCK 6: PNG 9 (Kerala ritual) left, text right -->
   <div class="block b6 fi">
-    <img class="img-main" src="Illustrations/PNG 9.png" alt="Kerala ritual"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 9.png" alt="Kerala ritual"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
     <div class="text-col">
       <p class="body-copy">This illustration tells a story of hidden devotion, shifting the scale of existence to frame a fiery human ritual through the silent gaze of an ant. This piece explores the fierce intimacy of unseen traditions, revealing our grandest ceremonies as brilliant, fleeting sparks within a vast and indifferent wild.</p>
@@ -212,7 +224,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
   <!-- BLOCK 7: PNG 10 (neon paranoia) left, text right -->
   <div class="block b7 fi">
-    <img class="img-main" src="Illustrations/PNG 10.png" alt="Neon paranoia"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 10.png" alt="Neon paranoia"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='60vh';this.removeAttribute('src')"/>
     <div class="text-col">
       <p class="body-copy">As the smoke clears, isolation shatters into the visceral realisation of a watchful presence. This illustration tells a story of manifested paranoia, utilising piercing neon hues to amplify the claustrophobic weight of the dark. It explores the primal fear of the unseen gaze, capturing the relentless, unsettling momentum of journeying through a mind's most dangerous psychological landscapes.</p>
@@ -224,7 +236,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     <div class="text-col">
       <p class="body-copy">This illustration introduces the spirited mascot for Hola Pondi, capturing the vibrant, sun-drenched essence of Pondicherry. By blending warm colonial yellows with dynamic motion, the piece explores the carefree joy of travel, inviting the observer to hop on and chase the horizon through charming, flower-draped alleys.</p>
     </div>
-    <img class="img-main" src="Illustrations/PNG 7.png" alt="Hola Pondi"
+    <img class="img-main" loading="lazy" decoding="async" src="Illustrations/PNG 7.png" alt="Hola Pondi"
          onerror="this.style.background='#1a1a1a';this.style.minHeight='50vh';this.removeAttribute('src')"/>
     <div></div>
   </div>
@@ -241,20 +253,33 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav  = document.getElementById('cs-nav');
-var fades = document.querySelectorAll('.fi');
+(function(){
+  const nav = document.getElementById('cs-nav');
+  const items = document.querySelectorAll('.fi');
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  fades.forEach(function(el) {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add('on');
-  });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+  function updateNav(){
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
+  updateNav();
+  window.addEventListener('scroll', updateNav, {passive:true});
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('on'));
+  } else {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('on');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {root:null, rootMargin:'0px 0px 15% 0px', threshold:0.01});
+
+    items.forEach(el => observer.observe(el));
+  }
+})();
 </script>
 </body>
 </html>

@@ -49,6 +49,63 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+/* ── Performance + mobile refinement ── */
+.cs-img-wrap,
+.cs-writeup,
+.cs-video-wrap{
+  contain:layout paint;
+}
+@media (max-width:767px){
+  #cs-nav{
+    height:50px;
+    padding:0 16px;
+  }
+  #cs-nav-logo{height:22px;}
+  .cs-nav-title{
+    max-width:48vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:.56rem;
+    letter-spacing:.14em;
+  }
+  #cs-images{padding-top:50px;}
+  .cs-img-wrap{
+    transform:translateY(18px);
+    transition-duration:.55s;
+  }
+  .cs-writeup{
+    margin:3rem auto;
+    padding:0 18px;
+  }
+  .cs-writeup p{
+    font-size:.84rem;
+    line-height:1.7;
+  }
+  .cs-end{
+    padding:4rem 18px;
+    gap:1rem;
+  }
+  .cs-end-title{
+    font-size:clamp(2rem,12vw,3.2rem);
+    text-align:center;
+  }
+  .cs-end-back{
+    font-size:.58rem;
+    padding:.72rem 1.4rem;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .cs-img-wrap,
+  .cs-writeup,
+  .cs-video-wrap{
+    transition:none;
+    transform:none;
+  }
+  .cs-end-back{transition:none;}
+}
+
 </style>
 </head>
 <body>
@@ -59,31 +116,31 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </nav>
 
 <div id="cs-images">
-  <div class="cs-img-wrap"><img src="ELIX/0.jpg"  alt="Elix Whiskey — 1"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/1.jpg"  alt="Elix Whiskey — 2"  loading="eager"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/2.jpg"  alt="Elix Whiskey — 3"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/3.jpg"  alt="Elix Whiskey — 4"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/4.jpg"  alt="Elix Whiskey — 5"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/5.jpg"  alt="Elix Whiskey — 6"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/6.jpg"  alt="Elix Whiskey — 7"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/7.jpg"  alt="Elix Whiskey — 8"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/8.jpg"  alt="Elix Whiskey — 9"  loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/9.jpg"  alt="Elix Whiskey — 10" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/11.jpg" alt="Elix Whiskey — 11" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/13.jpg" alt="Elix Whiskey — 12" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/14.jpg" alt="Elix Whiskey — 13" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/15.jpg" alt="Elix Whiskey — 14" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/16.jpg" alt="Elix Whiskey — 15" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/17.jpg" alt="Elix Whiskey — 16" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/18.jpg" alt="Elix Whiskey — 17" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/19.jpg" alt="Elix Whiskey — 18" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/20.jpg" alt="Elix Whiskey — 19" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/21.jpg" alt="Elix Whiskey — 20" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/22.jpg" alt="Elix Whiskey — 21" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/24.jpg" alt="Elix Whiskey — 22" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/25.jpg" alt="Elix Whiskey — 23" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/26.jpg" alt="Elix Whiskey — 24" loading="lazy"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/28.jpg" alt="Elix Whiskey — 25" loading="lazy"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/0.jpg"  alt="Elix Whiskey — 1"  loading="eager" fetchpriority="high" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/1.jpg" alt="Elix Whiskey — 2" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/2.jpg"  alt="Elix Whiskey — 3"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/3.jpg"  alt="Elix Whiskey — 4"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/4.jpg"  alt="Elix Whiskey — 5"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/5.jpg"  alt="Elix Whiskey — 6"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/6.jpg"  alt="Elix Whiskey — 7"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/7.jpg"  alt="Elix Whiskey — 8"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/8.jpg"  alt="Elix Whiskey — 9"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/9.jpg"  alt="Elix Whiskey — 10" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/11.jpg" alt="Elix Whiskey — 11" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/13.jpg" alt="Elix Whiskey — 12" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/14.jpg" alt="Elix Whiskey — 13" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/15.jpg" alt="Elix Whiskey — 14" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/16.jpg" alt="Elix Whiskey — 15" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/17.jpg" alt="Elix Whiskey — 16" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/18.jpg" alt="Elix Whiskey — 17" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/19.jpg" alt="Elix Whiskey — 18" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/20.jpg" alt="Elix Whiskey — 19" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/21.jpg" alt="Elix Whiskey — 20" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/22.jpg" alt="Elix Whiskey — 21" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/24.jpg" alt="Elix Whiskey — 22" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/25.jpg" alt="Elix Whiskey — 23" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/26.jpg" alt="Elix Whiskey — 24" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img src="ELIX/28.jpg" alt="Elix Whiskey — 25" loading="lazy" decoding="async"/></div>
 </div>
 
 <div class="cs-end">
@@ -96,20 +153,35 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 </div>
 
 <script>
-var nav   = document.getElementById('cs-nav');
-var wraps = document.querySelectorAll('.cs-img-wrap');
+(function(){
+  var nav = document.getElementById('cs-nav');
+  var wraps = document.querySelectorAll('.cs-img-wrap');
 
-function onScroll() {
-  var h = document.documentElement.scrollHeight - window.innerHeight;
-  if (window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  wraps.forEach(function(w) {
-    if (w.getBoundingClientRect().top < window.innerHeight * 0.92) w.classList.add('visible');
-  });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('load', onScroll);
-onScroll();
+  function updateNav(){
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin:'0px 0px 180px 0px',
+      threshold:0.08
+    });
+
+    wraps.forEach(function(w){ observer.observe(w); });
+  } else {
+    wraps.forEach(function(w){ w.classList.add('visible'); });
+  }
+
+  window.addEventListener('scroll', updateNav, {passive:true});
+  updateNav();
+})();
 </script>
 </body>
 </html>
