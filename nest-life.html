@@ -11,146 +11,6 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/></noscript>
 <style>
-/* ── Minimal tech loading screen ── */
-#portfolio-loader{
-  position:fixed;
-  inset:0;
-  z-index:100000;
-  min-height:100svh;
-  background:#000;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  pointer-events:auto;
-  opacity:1;
-  clip-path:inset(0 0 0 0);
-  transition:clip-path .9s cubic-bezier(.77,0,.18,1);
-}
-#portfolio-loader.is-done{
-  clip-path:inset(0 0 100% 0);
-  pointer-events:none;
-}
-#portfolio-loader::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.12;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,.045), transparent 34%),
-    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-  background-size:auto,28px 28px,28px 28px;
-  mask-image:linear-gradient(to bottom,transparent 0%,#000 22%,#000 78%,transparent 100%);
-}
-#portfolio-loader::after{
-  content:"";
-  position:absolute;
-  left:18%;
-  right:18%;
-  top:50%;
-  height:1px;
-  background:rgba(255,255,255,.035);
-  pointer-events:none;
-}
-.pl-core{
-  position:relative;
-  z-index:1;
-  width:min(88vw,520px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.pl-logo{
-  display:block;
-  width:120px;
-  max-width:32vw;
-  height:auto;
-  opacity:.96;
-  transform:translateY(0) scale(1);
-  filter:blur(0px);
-  will-change:filter,opacity,transform;
-  animation:pl-logo-breathe 3.6s ease-in-out infinite;
-}
-@keyframes pl-logo-breathe{
-  0%,100%{
-    opacity:.94;
-    filter:blur(0px);
-    transform:translateY(0) scale(1);
-  }
-  35%{
-    opacity:1;
-    filter:blur(0px);
-    transform:translateY(-1px) scale(1.01);
-  }
-  55%{
-    opacity:.78;
-    filter:blur(2.4px);
-    transform:translateY(0) scale(1.015);
-  }
-  72%{
-    opacity:.92;
-    filter:blur(.8px);
-    transform:translateY(0) scale(1.008);
-  }
-}
-.pl-status{
-  width:min(58vw,240px);
-  margin-top:26px;
-}
-.pl-track{
-  position:relative;
-  width:100%;
-  height:2px;
-  background:rgba(255,255,255,.14);
-  overflow:hidden;
-}
-.pl-fill{
-  display:block;
-  width:0;
-  height:100%;
-  background:#ed1c24;
-  transition:width .16s linear;
-  transform-origin:left center;
-}
-.pl-meta{
-  margin-top:8px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  width:100%;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-  font-size:9px;
-  line-height:1;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.42);
-}
-.pl-page{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.pl-percent{
-  color:#fff;
-  font-variant-numeric:tabular-nums;
-}
-@media (max-width:600px){
-  #portfolio-loader::before{background-size:auto,22px 22px,22px 22px;}
-  .pl-logo{width:92px;max-width:26vw;}
-  .pl-status{width:min(64vw,220px);margin-top:20px;}
-  .pl-meta{font-size:8px;letter-spacing:.12em;}
-}
-@media (prefers-reduced-motion:reduce){
-  .pl-logo{animation:none;opacity:1;transform:none;filter:none;}
-  #portfolio-loader{transition:none;}
-  .pl-fill{transition:none;}
-}
-
-</style>
-<style>
 @font-face{font-family:'PP Mori';src:url('PPMori-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
 @font-face{font-family:'PP Mori';src:url('PPMori-Semibold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -195,22 +55,33 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   transition:background .2s,border-color .2s;
 }
 .cs-end-back:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+
+/* Loading screen */
+#portfolio-loader{position:fixed;inset:0;z-index:100000;background:#000;display:grid;place-items:center;overflow:hidden;pointer-events:auto;opacity:1;visibility:visible;transition:clip-path .9s cubic-bezier(.77,0,.18,1),opacity .2s ease;}
+#portfolio-loader.is-done{clip-path:inset(0 0 100% 0);pointer-events:none;}
+#portfolio-loader::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.12),transparent 34%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,22px 22px,22px 22px;}
+.pl-core{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;}
+.pl-logo{display:block;width:120px;max-width:32vw;height:auto;opacity:.96;transform:translateY(0) scale(1);filter:blur(0);will-change:filter,opacity,transform;animation:pl-logo-breathe 3.6s ease-in-out infinite;}
+@keyframes pl-logo-breathe{0%,100%{opacity:.94;filter:blur(0);transform:translateY(0) scale(1)}35%{opacity:.82;filter:blur(2.4px);transform:translateY(-1px) scale(1.01)}55%{opacity:.78;filter:blur(3px);transform:translateY(0) scale(1.015)}72%{opacity:.92;filter:blur(.8px);transform:translateY(0) scale(1.008)}}
+.pl-status{width:min(64vw,220px);margin-top:20px;}
+.pl-track{width:100%;height:2px;background:rgba(255,255,255,.14);overflow:hidden;}
+.pl-fill{display:block;width:0;height:100%;background:#ed1c24;transition:width .16s linear;}
+.pl-meta{margin-top:8px;display:flex;justify-content:space-between;gap:16px;width:100%;font:9px/1 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);}
+.pl-percent{color:#fff;font-variant-numeric:tabular-nums;}
+@media(max-width:600px){.pl-logo{width:96px}.pl-status{width:min(70vw,190px);margin-top:16px}.pl-meta{font-size:8px;letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){.pl-logo{animation:none;filter:none;opacity:1;transform:none}#portfolio-loader{transition:none}.pl-fill{transition:none}}
+
 </style>
 </head>
 <body>
 
-<!-- Portfolio Loading Screen -->
+<!-- Loading screen -->
 <div id="portfolio-loader" aria-hidden="true">
   <div class="pl-core">
-    <img class="pl-logo" src="logo.png" alt="ader" decoding="async" fetchpriority="high"/>
+    <img class="pl-logo" src="logo.png" alt="ader" fetchpriority="high" decoding="async"/>
     <div class="pl-status">
-      <div class="pl-track">
-        <span class="pl-fill" id="pl-progress-fill"></span>
-      </div>
-      <div class="pl-meta">
-        <span class="pl-page" id="pl-context">INITIALIZING</span>
-        <span class="pl-percent" id="pl-percent">00%</span>
-      </div>
+      <div class="pl-track"><span class="pl-fill" id="pl-progress-fill"></span></div>
+      <div class="pl-meta"><span>NEST.LIFE</span><span class="pl-percent" id="pl-percent">00%</span></div>
     </div>
   </div>
 </div>
@@ -276,81 +147,32 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 })();
 </script>
 
-<!-- Loading screen controller -->
 <script>
 (function(){
-  var loader = document.getElementById('portfolio-loader');
-  if (!loader) return;
-
-  var fill = document.getElementById('pl-progress-fill');
-  var percent = document.getElementById('pl-percent');
-  var context = document.getElementById('pl-context');
-  var firstImage = document.querySelector('#cs-images .cs-img-wrap:first-child img');
-  var started = performance.now();
-  var finished = false;
-  var ready = false;
-
-  if (context) context.textContent = 'NEST.LIFE';
-
-  function setProgress(value){
-    value = Math.max(0, Math.min(100, value));
-    if (fill) fill.style.width = value.toFixed(1) + '%';
-    if (percent) percent.textContent = String(Math.round(value)).padStart(2,'0') + '%';
+  var loader=document.getElementById('portfolio-loader');
+  var fill=document.getElementById('pl-progress-fill');
+  var percent=document.getElementById('pl-percent');
+  var first=document.querySelector('.cs-img-wrap img');
+  if(!loader||!first)return;
+  first.loading='eager';
+  first.fetchPriority='high';
+  first.decoding='async';
+  var started=performance.now(),finished=false;
+  function setProgress(v){v=Math.max(0,Math.min(100,v));if(fill)fill.style.width=v.toFixed(1)+'%';if(percent)percent.textContent=String(Math.round(v)).padStart(2,'0')+'%';}
+  function close(){
+    if(finished)return; finished=true; setProgress(100);
+    var wait=Math.max(0,1200-(performance.now()-started));
+    setTimeout(function(){loader.classList.add('is-done');setTimeout(function(){if(loader.parentNode)loader.parentNode.removeChild(loader);},950);},wait);
   }
-
-  var progress = 10;
-  setProgress(progress);
-
-  function animateWhileLoading(){
-    if (finished || ready) return;
-    progress = Math.min(90, progress + (90 - progress) * 0.035);
-    setProgress(progress);
-    requestAnimationFrame(animateWhileLoading);
-  }
-  requestAnimationFrame(animateWhileLoading);
-
-  function closeLoader(){
-    if (finished) return;
-    finished = true;
-    setProgress(100);
-
-    var elapsed = performance.now() - started;
-    var minimumVisible = 900;
-    var wait = Math.max(0, minimumVisible - elapsed);
-
-    setTimeout(function(){
-      loader.classList.add('is-done');
-      setTimeout(function(){
-        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-      }, 900);
-    }, wait + 120);
-  }
-
-  function markReady(){
-    if (ready) return;
-    ready = true;
-
-    if (firstImage && firstImage.decode) {
-      firstImage.decode().catch(function(){}).then(closeLoader);
-    } else {
-      closeLoader();
-    }
-  }
-
-  if (firstImage) {
-    if (firstImage.complete && firstImage.naturalWidth > 0) {
-      markReady();
-    } else {
-      firstImage.addEventListener('load', markReady, {once:true});
-      firstImage.addEventListener('error', markReady, {once:true});
-    }
-  } else {
-    markReady();
-  }
-
-  /* Never trap the visitor indefinitely on a slow/broken image. */
-  setTimeout(markReady, 5000);
+  function ready(){ if(first.naturalWidth>0) close(); }
+  setProgress(12);
+  var p=0;
+  function tick(){if(finished)return; p=Math.min(88,p+1.8);setProgress(p);requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
+  if(first.complete) ready(); else {first.addEventListener('load',ready,{once:true});first.addEventListener('error',close,{once:true});}
+  setTimeout(close,5000);
 })();
 </script>
+
 </body>
 </html>
