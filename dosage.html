@@ -205,7 +205,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
     if(finished)return;
     finished=true;
     setProgress(100);
-    var wait=Math.max(0,1200-(performance.now()-started));
+    var wait=Math.max(0,1800-(performance.now()-started));
     setTimeout(function(){
       loader.classList.add('is-done');
       setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},950);
