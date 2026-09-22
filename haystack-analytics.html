@@ -289,7 +289,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   function setProgress(v){v=Math.max(0,Math.min(100,v));if(fill)fill.style.width=v.toFixed(1)+'%';if(percent)percent.textContent=String(Math.round(v)).padStart(2,'0')+'%';}
   function close(){
     if(finished)return; finished=true; setProgress(100);
-    var wait=Math.max(0,1200-(performance.now()-started));
+    var wait=Math.max(0,1800-(performance.now()-started));
     setTimeout(function(){loader.classList.add('is-done');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},950);},wait);
   }
   function ready(){if(first.naturalWidth>0)close();}
