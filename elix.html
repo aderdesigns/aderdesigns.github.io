@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Elix Whiskey — Ader</title>
+<link rel="preload" href="ELIX/0.jpg" as="image" fetchpriority="high"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&display=swap" rel="stylesheet"/>
@@ -106,41 +108,70 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   .cs-end-back{transition:none;}
 }
 
+
+/* ── Ader case-study loading screen ── */
+#portfolio-loader{position:fixed;inset:0;z-index:100000;background:#000;display:grid;place-items:center;overflow:hidden;pointer-events:auto;opacity:0;visibility:hidden;transition:clip-path .9s cubic-bezier(.77,0,.18,1),opacity .2s ease;}
+#portfolio-loader.is-done{clip-path:inset(0 0 100% 0);pointer-events:none;}
+#portfolio-loader::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.12),transparent 34%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,22px 22px,22px 22px;}
+.pl-core{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;}
+.pl-logo{display:block;width:120px;max-width:32vw;height:auto;opacity:.96;transform:translateY(0) scale(1);filter:blur(0);will-change:filter,opacity,transform;animation:pl-logo-breathe 3.6s ease-in-out infinite;}
+@keyframes pl-logo-breathe{0%,100%{opacity:.94;filter:blur(0);transform:translateY(0) scale(1)}35%{opacity:.82;filter:blur(2.4px);transform:translateY(-1px) scale(1.01)}55%{opacity:.78;filter:blur(3px);transform:translateY(0) scale(1.015)}72%{opacity:.92;filter:blur(.8px);transform:translateY(0) scale(1.008)}}
+.pl-status{width:min(64vw,220px);margin-top:20px;}
+.pl-track{width:100%;height:2px;background:rgba(255,255,255,.14);overflow:hidden;}
+.pl-fill{display:block;width:0;height:100%;background:#ed1c24;transition:width .16s linear;}
+.pl-meta{margin-top:8px;display:flex;justify-content:space-between;gap:16px;width:100%;font:9px/1 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);}
+.pl-context{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:75%;}
+.pl-percent{color:#fff;font-variant-numeric:tabular-nums;}
+@media(max-width:600px){.pl-logo{width:96px}.pl-status{width:min(70vw,190px);margin-top:16px}.pl-meta{font-size:8px;letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){.pl-logo{animation:none;filter:none;opacity:1;transform:none}#portfolio-loader{transition:none}.pl-fill{transition:none}}
 </style>
 </head>
 <body>
 
+
+<!-- Loading screen -->
+<div id="portfolio-loader" aria-hidden="true">
+  <div class="pl-core">
+    <img class="pl-logo" src="logo.png" alt="ader" fetchpriority="high" decoding="async" width="120" height="auto"/>
+    <div class="pl-status">
+      <div class="pl-track"><span class="pl-fill" id="pl-progress-fill"></span></div>
+      <div class="pl-meta"><span class="pl-context" id="pl-context">LOADING</span><span class="pl-percent" id="pl-percent">00%</span></div>
+    </div>
+  </div>
+</div>
+
+
 <nav id="cs-nav">
-  <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
+  <img id="cs-nav-logo" src="logo.png" loading="lazy" decoding="async" fetchpriority="low" alt="ader" onclick="window.location.href='index.html'"/>
   <span class="cs-nav-title">Elix Whiskey</span>
 </nav>
 
 <div id="cs-images">
-  <div class="cs-img-wrap"><img src="ELIX/0.jpg"  alt="Elix Whiskey — 1"  loading="eager" fetchpriority="high" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/1.jpg" alt="Elix Whiskey — 2" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/2.jpg"  alt="Elix Whiskey — 3"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/3.jpg"  alt="Elix Whiskey — 4"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/4.jpg"  alt="Elix Whiskey — 5"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/5.jpg"  alt="Elix Whiskey — 6"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/6.jpg"  alt="Elix Whiskey — 7"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/7.jpg"  alt="Elix Whiskey — 8"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/8.jpg"  alt="Elix Whiskey — 9"  loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/9.jpg"  alt="Elix Whiskey — 10" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/11.jpg" alt="Elix Whiskey — 11" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/13.jpg" alt="Elix Whiskey — 12" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/14.jpg" alt="Elix Whiskey — 13" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/15.jpg" alt="Elix Whiskey — 14" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/16.jpg" alt="Elix Whiskey — 15" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/17.jpg" alt="Elix Whiskey — 16" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/18.jpg" alt="Elix Whiskey — 17" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/19.jpg" alt="Elix Whiskey — 18" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/20.jpg" alt="Elix Whiskey — 19" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/21.jpg" alt="Elix Whiskey — 20" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/22.jpg" alt="Elix Whiskey — 21" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/24.jpg" alt="Elix Whiskey — 22" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/25.jpg" alt="Elix Whiskey — 23" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/26.jpg" alt="Elix Whiskey — 24" loading="lazy" decoding="async"/></div>
-  <div class="cs-img-wrap"><img src="ELIX/28.jpg" alt="Elix Whiskey — 25" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/0.jpg" loading="eager" decoding="async" fetchpriority="high"  alt="Elix Whiskey — 1"  loading="eager" fetchpriority="high" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/1.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 2" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/2.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 3"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/3.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 4"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/4.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 5"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/5.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 6"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/6.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 7"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/7.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 8"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/8.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 9"  loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/9.jpg" loading="lazy" decoding="async" fetchpriority="low"  alt="Elix Whiskey — 10" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/11.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 11" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/13.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 12" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/14.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 13" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/15.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 14" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/16.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 15" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/17.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 16" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/18.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 17" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/19.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 18" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/20.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 19" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/21.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 20" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/22.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 21" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/24.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 22" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/25.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 23" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/26.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 24" loading="lazy" decoding="async"/></div>
+  <div class="cs-img-wrap"><img  src="ELIX/28.jpg" loading="lazy" decoding="async" fetchpriority="low" alt="Elix Whiskey — 25" loading="lazy" decoding="async"/></div>
 </div>
 
 <div class="cs-end">
@@ -183,5 +214,70 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   updateNav();
 })();
 </script>
+
+
+<script>
+(function(){
+  var loader=document.getElementById('portfolio-loader');
+  var fill=document.getElementById('pl-progress-fill');
+  var percent=document.getElementById('pl-percent');
+  var context=document.getElementById('pl-context');
+  var first=document.querySelector('.cs-img-wrap img');
+  if(!loader||!first)return;
+
+  var title=(document.title||'Portfolio').replace(/\s*[—-]\s*Ader\s*$/i,'').trim().toUpperCase();
+  if(context)context.textContent=title||'LOADING';
+
+  first.loading='eager';
+  first.fetchPriority='high';
+  first.decoding='async';
+
+  var started=performance.now(),finished=false,shown=false;
+  setTimeout(function(){
+    if(!finished){
+      shown=true;
+      loader.style.opacity='1';
+      loader.style.visibility='visible';
+      loader.style.pointerEvents='auto';
+    }
+  },250);
+  function setProgress(v){
+    v=Math.max(0,Math.min(100,v));
+    if(fill)fill.style.width=v.toFixed(1)+'%';
+    if(percent)percent.textContent=String(Math.round(v)).padStart(2,'0')+'%';
+  }
+  function close(){
+    if(finished)return;
+    finished=true;
+    setProgress(100);
+    var wait=0;
+    setTimeout(function(){
+      loader.classList.add('is-done');
+      setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},950);
+    },wait);
+  }
+  function ready(){
+    if(first.naturalWidth>0)close();
+  }
+
+  setProgress(8);
+  var p=8;
+  function tick(){
+    if(finished)return;
+    p=Math.min(88,p+1.6);
+    setProgress(p);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  if(first.complete)ready();
+  else{
+    first.addEventListener('load',ready,{once:true});
+    first.addEventListener('error',close,{once:true});
+  }
+  setTimeout(close,5000);
+})();
+</script>
+
 </body>
 </html>
