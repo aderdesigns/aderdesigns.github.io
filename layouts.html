@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="theme-color" content="#0a0a0a"/>
+<link rel="preload" href="Layout designs/1.1.mp4" as="video" type="video/mp4" fetchpriority="high"/>
 <title>Layouts — Ader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -64,9 +65,38 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   .cs-end{padding:4rem 18px;}
   .cs-end-title{font-size:clamp(1.8rem,9vw,3rem);text-align:center;line-height:1.05;}
 }
+
+/* Loading screen */
+#portfolio-loader{position:fixed;inset:0;z-index:100000;background:#000;display:grid;place-items:center;overflow:hidden;pointer-events:auto;opacity:1;visibility:visible;transition:clip-path .9s cubic-bezier(.77,0,.18,1),opacity .2s ease;}
+#portfolio-loader.is-done{clip-path:inset(0 0 100% 0);pointer-events:none;}
+#portfolio-loader::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.12),transparent 34%),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,22px 22px,22px 22px;}
+.pl-core{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;}
+.pl-logo{display:block;width:120px;max-width:32vw;height:auto;opacity:.96;transform:translateY(0) scale(1);filter:blur(0);will-change:filter,opacity,transform;animation:pl-logo-breathe 3.6s ease-in-out infinite;}
+@keyframes pl-logo-breathe{0%,100%{opacity:.94;filter:blur(0);transform:translateY(0) scale(1)}35%{opacity:.82;filter:blur(2.4px);transform:translateY(-1px) scale(1.01)}55%{opacity:.78;filter:blur(3px);transform:translateY(0) scale(1.015)}72%{opacity:.92;filter:blur(.8px);transform:translateY(0) scale(1.008)}}
+.pl-status{width:min(64vw,220px);margin-top:20px;}
+.pl-track{width:100%;height:2px;background:rgba(255,255,255,.14);overflow:hidden;}
+.pl-fill{display:block;width:0;height:100%;background:#ed1c24;transition:width .16s linear;}
+.pl-meta{margin-top:8px;display:flex;justify-content:space-between;gap:16px;width:100%;font:9px/1 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);}
+.pl-percent{color:#fff;font-variant-numeric:tabular-nums;}
+@media(max-width:600px){.pl-logo{width:96px}.pl-status{width:min(70vw,190px);margin-top:16px}.pl-meta{font-size:8px;letter-spacing:.12em}}
+@media(prefers-reduced-motion:reduce){.pl-logo{animation:none;filter:none;opacity:1;transform:none}#portfolio-loader{transition:none}.pl-fill{transition:none}}
+
 </style>
 </head>
 <body>
+
+<!-- Loading Screen -->
+<div id="portfolio-loader" aria-hidden="true">
+  <div class="pl-core">
+    <img class="pl-logo" src="logo.png" alt="ader" fetchpriority="high" decoding="async"/>
+    <div class="pl-status">
+      <div class="pl-track"><span class="pl-fill" id="pl-progress-fill"></span></div>
+      <div class="pl-meta"><span>LAYOUTS</span><span class="pl-percent" id="pl-percent">00%</span></div>
+    </div>
+  </div>
+</div>
+
+
 
 <nav id="cs-nav">
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
@@ -78,7 +108,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 <div id="cs-images">
   <!-- 1.1 MP4 -->
   <div class="cs-img-wrap">
-    <video autoplay loop muted playsinline>
+    <video autoplay loop muted playsinline preload="auto">
       <source src="Layout designs/1.1.mp4" type="video/mp4"/>
     </video>
   </div>
@@ -88,9 +118,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <div class="cs-img-wrap"><img src="Layout designs/3.1.png" alt="Layouts — 3.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 4.1 MP4 -->
   <div class="cs-img-wrap">
-    <video autoplay loop muted playsinline>
-      <source src="Layout designs/4.1.mp4" type="video/mp4"/>
-    </video>
+    <video class="lazy-video" autoplay loop muted playsinline preload="none" data-video-src="Layout designs/4.1.mp4"></video>
   </div>
   <!-- 5.1 PNG -->
   <div class="cs-img-wrap"><img src="Layout designs/5.1.png" alt="Layouts — 5.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
@@ -104,17 +132,13 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   <div class="cs-img-wrap"><img src="Layout designs/10.1.png" alt="Layouts — 10.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 11.1 MP4 -->
   <div class="cs-img-wrap">
-    <video autoplay loop muted playsinline>
-      <source src="Layout designs/11.1.mp4" type="video/mp4"/>
-    </video>
+    <video class="lazy-video" autoplay loop muted playsinline preload="none" data-video-src="Layout designs/11.1.mp4"></video>
   </div>
   <!-- 13.1 PNG -->
   <div class="cs-img-wrap"><img src="Layout designs/13.1.png" alt="Layouts — 13.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
   <!-- 14.1 MP4 -->
   <div class="cs-img-wrap">
-    <video autoplay loop muted playsinline>
-      <source src="Layout designs/14.1.mp4" type="video/mp4"/>
-    </video>
+    <video class="lazy-video" autoplay loop muted playsinline preload="none" data-video-src="Layout designs/14.1.mp4"></video>
   </div>
   <!-- 15.1 PNG -->
   <div class="cs-img-wrap"><img src="Layout designs/15.1.png" alt="Layouts — 15.1" loading="lazy" decoding="async" fetchpriority="low"/></div>
@@ -133,64 +157,103 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 
 <script>
 (function(){
-  var nav = document.getElementById('cs-nav');
-  var sentinel = document.getElementById('nav-sentinel');
-  var wraps = document.querySelectorAll('.cs-img-wrap');
-  var lazyVideos = document.querySelectorAll('video.lazy-video');
+  var nav=document.getElementById('cs-nav');
+  var sentinel=document.getElementById('nav-sentinel');
+  var wraps=document.querySelectorAll('.cs-img-wrap');
+  var lazyVideos=document.querySelectorAll('.lazy-video');
 
-  /* No scroll handler: the nav state is driven by one tiny sentinel. */
-  var navObserver = new IntersectionObserver(function(entries){
-    nav.classList.toggle('scrolled', !entries[0].isIntersecting);
-  }, {threshold:0, rootMargin:'-20px 0px 0px 0px'});
-  navObserver.observe(sentinel);
+  if (sentinel && 'IntersectionObserver' in window) {
+    var navObserver=new IntersectionObserver(function(entries){
+      nav.classList.toggle('scrolled', !entries[0].isIntersecting);
+    }, {threshold:0,rootMargin:'-20px 0px 0px 0px'});
+    navObserver.observe(sentinel);
+  } else {
+    function updateNav(){nav.classList.toggle('scrolled',window.scrollY>20);}
+    window.addEventListener('scroll',updateNav,{passive:true});
+    updateNav();
+  }
 
-  /* Reveal only when genuinely close to the viewport. */
-  var revealObserver = new IntersectionObserver(function(entries, observer){
-    entries.forEach(function(entry){
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  var revealObserver;
+  if ('IntersectionObserver' in window) {
+    revealObserver=new IntersectionObserver(function(entries,observer){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.01,rootMargin:'0px 0px 18% 0px'});
+    wraps.forEach(function(w){revealObserver.observe(w);});
+  } else {
+    wraps.forEach(function(w){w.classList.add('visible');});
+  }
+
+  function loadVideo(video){
+    if(video.dataset.loaded)return;
+    var src=video.dataset.videoSrc;
+    if(!src)return;
+    video.src=src;
+    video.dataset.loaded='1';
+    video.load();
+  }
+
+  if(lazyVideos.length && 'IntersectionObserver' in window){
+    var loadObserver=new IntersectionObserver(function(entries,observer){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting)return;
+        loadVideo(entry.target);
         observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.01, rootMargin:'0px 0px 18% 0px'});
-  wraps.forEach(function(w){ revealObserver.observe(w); });
+      });
+    },{threshold:0,rootMargin:'1000px 0px 800px 0px'});
+    lazyVideos.forEach(function(v){loadObserver.observe(v);});
+  }else{
+    lazyVideos.forEach(loadVideo);
+  }
 
-  /* Start downloading off-screen videos only when they are getting close. */
-  var videoLoadObserver = new IntersectionObserver(function(entries, observer){
-    entries.forEach(function(entry){
-      if (!entry.isIntersecting) return;
-      var vid = entry.target;
-      if (!vid.src && vid.dataset.src) {
-        vid.src = vid.dataset.src;
-        vid.load();
-        vid.addEventListener('canplay', function(){
-          if (vid._inViewport) {
-            var p = vid.play();
-            if (p && p.catch) p.catch(function(){});
-          }
-        }, {once:true});
-      }
-      observer.unobserve(vid);
-    });
-  }, {threshold:0, rootMargin:'1000px 0px 600px 0px'});
+  if('IntersectionObserver' in window){
+    var playObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var v=entry.target;
+        if(entry.isIntersecting){
+          var p=v.play();
+          if(p&&p.catch)p.catch(function(){});
+        }else{
+          v.pause();
+        }
+      });
+    },{threshold:0.15});
+    document.querySelectorAll('#cs-images video').forEach(function(v){playObserver.observe(v);});
+  }
+})();
+</script>
 
-  lazyVideos.forEach(function(v){ videoLoadObserver.observe(v); });
-
-  /* Only the video actually in the viewport is allowed to play. */
-  var videoPlayObserver = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      var vid = entry.target;
-      vid._inViewport = entry.isIntersecting;
-      if (entry.isIntersecting) {
-        var p = vid.play();
-        if (p && p.catch) p.catch(function(){});
-      } else {
-        vid.pause();
-      }
-    });
-  }, {threshold:0.15});
-
-  document.querySelectorAll('video').forEach(function(v){ videoPlayObserver.observe(v); });
+<script>
+(function(){
+  var loader=document.getElementById('portfolio-loader');
+  var fill=document.getElementById('pl-progress-fill');
+  var percent=document.getElementById('pl-percent');
+  var first=document.querySelector('#cs-images video');
+  if(!loader||!first)return;
+  first.preload='auto';
+  var started=performance.now(),finished=false;
+  function setProgress(v){v=Math.max(0,Math.min(100,v));if(fill)fill.style.width=v.toFixed(1)+'%';if(percent)percent.textContent=String(Math.round(v)).padStart(2,'0')+'%';}
+  function close(){
+    if(finished)return; finished=true; setProgress(100);
+    var wait=0;
+    setTimeout(function(){loader.classList.add('is-done');setTimeout(function(){if(loader&&loader.parentNode)loader.parentNode.removeChild(loader);},950);},wait);
+  }
+  function ready(){if(first.readyState>=2)close();}
+  setProgress(12);
+  var p=0;
+  function tick(){if(finished)return;p=Math.min(88,p+1.8);setProgress(p);requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
+  if(first.readyState>=2) ready();
+  else {
+    first.addEventListener('loadeddata',ready,{once:true});
+    first.addEventListener('canplay',ready,{once:true});
+    first.addEventListener('error',close,{once:true});
+  }
+  setTimeout(close,6000);
 })();
 </script>
 </body>
