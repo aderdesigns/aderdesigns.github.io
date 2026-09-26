@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preload" as="image" href="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" fetchpriority="high"/>
 <title>Son of Sahyan — Ader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -112,9 +113,69 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 @media (prefers-reduced-motion: reduce){
   .cs-img-wrap,.cs-writeup,.explore-btn-wrap,.cs-video-wrap{transition:none !important;transform:none !important;opacity:1 !important;}
 }
+
+/* Loading screen */
+#portfolio-loader{
+  position:fixed;inset:0;z-index:100000;background:#000;display:grid;place-items:center;
+  overflow:hidden;pointer-events:auto;opacity:0;visibility:hidden;
+  transition:clip-path .9s cubic-bezier(.77,0,.18,1),opacity .2s ease;
+}
+#portfolio-loader.is-done{clip-path:inset(0 0 100% 0);pointer-events:none;}
+#portfolio-loader::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.12),transparent 34%),
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:auto,22px 22px,22px 22px;
+}
+.pl-core{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;}
+.pl-logo{
+  display:block;width:120px;max-width:32vw;height:auto;opacity:.96;
+  transform:translateY(0) scale(1);filter:blur(0);
+  will-change:filter,opacity,transform;animation:pl-logo-breathe 3.6s ease-in-out infinite;
+}
+@keyframes pl-logo-breathe{
+  0%,100%{opacity:.94;filter:blur(0);transform:translateY(0) scale(1)}
+  35%{opacity:.82;filter:blur(2.4px);transform:translateY(-1px) scale(1.01)}
+  55%{opacity:.78;filter:blur(3px);transform:translateY(0) scale(1.015)}
+  72%{opacity:.92;filter:blur(.8px);transform:translateY(0) scale(1.008)}
+}
+.pl-status{width:min(64vw,220px);margin-top:20px;}
+.pl-track{width:100%;height:2px;background:rgba(255,255,255,.14);overflow:hidden;}
+.pl-fill{display:block;width:0;height:100%;background:#ed1c24;transition:width .16s linear;}
+.pl-meta{
+  margin-top:8px;display:flex;justify-content:space-between;gap:16px;width:100%;
+  font:9px/1 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);
+}
+.pl-percent{color:#fff;font-variant-numeric:tabular-nums;}
+@media(max-width:600px){
+  .pl-logo{width:96px}
+  .pl-status{width:min(70vw,190px);margin-top:16px}
+  .pl-meta{font-size:8px;letter-spacing:.12em}
+}
+@media(prefers-reduced-motion:reduce){
+  .pl-logo{animation:none;filter:none;opacity:1;transform:none}
+  #portfolio-loader{transition:none}
+  .pl-fill{transition:none}
+}
+
 </style>
 </head>
 <body>
+
+<!-- Loading screen -->
+<div id="portfolio-loader" aria-hidden="true">
+  <div class="pl-core">
+    <img class="pl-logo" src="logo.png" alt="ader" fetchpriority="high" decoding="async"/>
+    <div class="pl-status">
+      <div class="pl-track"><span class="pl-fill" id="pl-progress-fill"></span></div>
+      <div class="pl-meta"><span>SON OF SAHYAN</span><span class="pl-percent" id="pl-percent">00%</span></div>
+    </div>
+  </div>
+</div>
+
 
 <nav id="cs-nav">
   <img id="cs-nav-logo" src="logo.png" alt="ader" onclick="window.location.href='index.html'"/>
@@ -124,7 +185,7 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
 <div id="cs-images">
 
   <!-- PNGs 1–12 from Behance CDN -->
-  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" alt="Son of Sahyan — 1"/ loading="eager" decoding="async" fetchpriority="high"></div>
+  <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/682ed0213343929.6744f0006e3f9.png" alt="Son of Sahyan — 1" loading="eager" decoding="async" fetchpriority="high"></div>
   <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/219031213343929.6747372f096ca.png" alt="Son of Sahyan — 2"/ loading="lazy" decoding="async" fetchpriority="low"></div>
   <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4bfa23213343929.6744f63fbdac5.png" alt="Son of Sahyan — 3"/ loading="lazy" decoding="async" fetchpriority="low"></div>
   <div class="cs-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/6b18e9213343929.67489e63306f2.png" alt="Son of Sahyan — 4"/ loading="lazy" decoding="async" fetchpriority="low"></div>
@@ -221,6 +282,51 @@ body{font-family:'Host Grotesk',sans-serif;background:#0a0a0a;color:#fff;}
   if (reduce) {
     fadeEls.forEach(function(el){ el.classList.add('visible'); });
   }
+})();
+</script>
+
+<script>
+(function(){
+  var loader=document.getElementById('portfolio-loader');
+  var fill=document.getElementById('pl-progress-fill');
+  var percent=document.getElementById('pl-percent');
+  var first=document.querySelector('.cs-img-wrap:first-child img');
+  if(!loader||!first)return;
+  
+  first.loading='eager';
+  first.fetchPriority='high';
+  first.decoding='async';
+  var started=performance.now(),finished=false;
+  setTimeout(function(){ if(!finished){ loader.style.opacity='1'; loader.style.visibility='visible'; loader.style.pointerEvents='auto'; } },250);
+  function setProgress(v){
+    v=Math.max(0,Math.min(100,v));
+    if(fill)fill.style.width=v.toFixed(1)+'%';
+    if(percent)percent.textContent=String(Math.round(v)).padStart(2,'0')+'%';
+  }
+  function close(){
+    if(finished)return; finished=true; setProgress(100);
+    var wait=0;
+    setTimeout(function(){
+      loader.classList.add('is-done');
+      setTimeout(function(){if(loader.parentNode)loader.parentNode.removeChild(loader);},950);
+    },wait);
+  }
+  function ready(){ if(first.naturalWidth>0) close(); }
+  setProgress(12);
+  var p=0;
+  function tick(){
+    if(finished)return;
+    p=Math.min(88,p+1.8);
+    setProgress(p);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  if(first.complete) ready();
+  else {
+    first.addEventListener('load',ready,{once:true});
+    first.addEventListener('error',close,{once:true});
+  }
+  setTimeout(close,6000);
 })();
 </script>
 </body>
